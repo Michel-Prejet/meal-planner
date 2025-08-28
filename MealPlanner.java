@@ -7,8 +7,19 @@ import java.util.ArrayList;
 
 public class MealPlanner {
     private ArrayList<Week> weeklyPlans;
+    private static final int DAYS_IN_WEEK = 7;
     private static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday" };
+    private static final int COL_WIDTH = 16;
+    private static final int LINE_WIDTH = (COL_WIDTH + 1) * DAYS_IN_WEEK;
+
+    public static void main(String[] args) {
+        MealPlanner mp = new MealPlanner();
+        mp.loadDataFromCSV("data.csv");
+        mp.printWeek("2025-08-24");
+        mp.printWeek("2025-08-31");
+
+    }
 
     /**
      * Constructs a new Meal Planner with an empty Week ArrayList.
@@ -119,7 +130,6 @@ public class MealPlanner {
             throw new IllegalArgumentException("File name cannot be null, empty, or only whitespace.");
         }
 
-        final int DAYS_IN_WEEK = 7;
         try {
             PrintWriter pw = new PrintWriter(new File(filename));
             pw.println(
@@ -482,29 +492,55 @@ public class MealPlanner {
     }
 
     /**
-     * @param weekAnchorDate the anchor date of the week for which a nutritional
-     *                       summary should be returned.
-     * @return a string containing a nutritional summary of the week with the given
-     *         anchor date, including average daily Calories intake, average daily
-     *         carbohydrate consumption, average daily fat consumption, and average
-     *         daily protein consumption.
+     * @param weekAnchorDate the anchor date of the week to be printed.
+     * @return a tabular representation of the week with the given anchor
+     *         date, including meals and their Calories counts, average daily
+     *         Calories intake, average daily carbohydrate consumption, average
+     *         daily fat consumption, and average daily protein consumption.
      */
-    public String getWeekNutritionalSummary(String weekAnchorDate) {
+    public void printWeek(String weekAnchorDate) {
         Week week = getWeek(weekAnchorDate);
         if (week == null) {
             System.out.println("[Error] Could not print nutritional summary because the given week does not exist.");
-            return null;
+            return;
         }
 
+        // Get formatted date.
         String[] dateTokens = Week.getDateFromString(weekAnchorDate);
-        String output = String.format("--- Nutritional summary for the week of %s %d, %d ---\n", dateTokens[1],
-                dateTokens[2], dateTokens[0]);
-        output += String.format("\tAverage daily Calorie intake: %.2f\n", week.getAvgCaloriesPerDay());
-        output += String.format("\tAverage daily carbohydrate consumption: %.2f\n", week.getAvgCarbsPerDay());
-        output += String.format("\tAverage daily fat consumption: %.2f\n", week.getAvgFatPerDay());
-        output += String.format("\tAverage daily protein consumption: %.2f\n", week.getAvgProteinPerDay());
 
-        return output;
+        // Add header.
+        String output = String.format("\nWeek of %s %d, %d\n", dateTokens[1], Integer.parseInt(dateTokens[2]),
+                Integer.parseInt(dateTokens[0]));
+        for (String dayOfWeek : DAYS_OF_THE_WEEK) {
+            output += String.format("%-" + COL_WIDTH + "s|", fitCell(dayOfWeek));
+        }
+        output += "\n";
+        for (int i = 0; i < LINE_WIDTH; i++) {
+            output += "-";
+        }
+        output += "\n";
+
+        // Add meals and ingredients for each day of the week.
+        String[][] rows = getRowsToPrint(week);
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < rows[i].length; j++) {
+                output += String.format("%-" + COL_WIDTH + "s|", fitCell(rows[i][j]));
+            }
+            output += "\n";
+        }
+
+        for (int i = 0; i < LINE_WIDTH; i++) {
+            output += "-";
+        }
+        output += "\n";
+
+        // Add week statistics.
+        output += String.format("Average daily Calorie intake: %.2f kcal\n", week.getAvgCaloriesPerDay());
+        output += String.format("Average daily carbohydrate consumption: %.2f g\n", week.getAvgCarbsPerDay());
+        output += String.format("Average daily fat consumption: %.2f g\n", week.getAvgFatPerDay());
+        output += String.format("Average daily protein consumption: %.2f g\n", week.getAvgProteinPerDay());
+
+        System.out.println(output);
     }
 
     @Override
@@ -514,6 +550,91 @@ public class MealPlanner {
             output += week.toString() + "\n";
         }
         return output;
+    }
+
+    /**
+     * Builds a 2D string grid used to print a weekly meal table.
+     * 
+     * @param week the week for which the grid should be built.
+     * @return a 2D array of String containing meal names at even indices and
+     *         Calorie values and odd indices.
+     */
+    private String[][] getRowsToPrint(Week week) {
+        int maxRows = getMaxNumRows(week);
+        String[][] result = new String[maxRows][DAYS_IN_WEEK];
+
+        int mealCount = 0;
+        int row = 0;
+        while (mealCount < maxRows / 3) {
+            for (int i = 0; i < DAYS_IN_WEEK; i++) {
+                Day currDay = week.getDay(DAYS_OF_THE_WEEK[i]);
+                ArrayList<Meal> meals = currDay.getMeals();
+
+                if (mealCount < meals.size()) {
+                    result[row][i] = meals.get(mealCount).getName();
+                    result[row + 1][i] = String.format("%.2f kcal", meals.get(mealCount).getCalories());
+                    result[row + 2][i] = "";
+                } else {
+                    result[row][i] = "";
+                    result[row + 1][i] = "";
+                    result[row + 2][i] = "";
+                }
+            }
+
+            mealCount++;
+            row += 3;
+        }
+
+        return result;
+    }
+
+    /**
+     * Determines the maximum number of rows to be printed for a given week.
+     * Finds the day of the week with the greatest number of meals, then
+     * multiplies that number by three (since each meal requires three rows: one
+     * for its name, one for its Calorie count, and one blank line).
+     * 
+     * @param week the week for which the maximum number of rows to print should
+     *             be determined.
+     * @return the maximum number of rows to print for the given week.
+     */
+    private int getMaxNumRows(Week week) {
+        int max = 0;
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
+            Day curr = week.getDay(DAYS_OF_THE_WEEK[i]);
+            int count = curr.getMeals().size() * 3;
+            if (count > max) {
+                max = count;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * Allows a given string to fit into a cell of a table by truncating it
+     * and replacing the truncated characters by "...". The length of the
+     * cell is equal to COL_WIDTH.
+     * 
+     * @param s the string to be formatted to fit into a cell.
+     * @return a truncated string with "..." replacing truncated characters, or
+     *         the original string if its length did not exceed the cell length,
+     *         or a truncated string without "..." if the cell length is less
+     *         than 4.
+     */
+    private String fitCell(String s) {
+        if (s == null) {
+            throw new IllegalArgumentException("String to be fitted cannot be null.");
+        }
+
+        if (s.length() <= COL_WIDTH) {
+            return s;
+        }
+
+        if (COL_WIDTH < 4) {
+            return s.substring(0, COL_WIDTH);
+        }
+
+        return s.substring(0, COL_WIDTH - 3) + "...";
     }
 
 }
