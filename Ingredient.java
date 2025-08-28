@@ -6,7 +6,7 @@
  * stored quantity.
  * 
  * @author Michel Préjet
- * @version 2025-08-25
+ * @version 2025-08-28
  */
 
 public class Ingredient {
