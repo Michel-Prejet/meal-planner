@@ -161,6 +161,18 @@ public class Ingredient {
         }
     }
 
+    /**
+     * @param newQuantity the new amount for the ingredient.
+     * @throws IllegalArgumentException if the given quantity is not positive.
+     */
+    public void setQuantity(double newQuantity) {
+        if (newQuantity <= 0) {
+            throw new IllegalArgumentException("Ingredient quantity cannot be zero or negative.");
+        }
+
+        this.quantity = newQuantity;
+    }
+
     public Ingredient clone() {
         if (this.hasNutritionalFacts) {
             return new Ingredient(this.name, this.quantity, this.carbsPer100Gram, this.fatPer100Gram,
