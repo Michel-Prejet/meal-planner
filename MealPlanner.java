@@ -17,6 +17,7 @@ public class MealPlanner {
         MealPlanner mp = new MealPlanner();
         mp.loadDataFromCSV("data.csv");
         mp.printShoppingList("2025-08-24");
+        mp.printDay("2025-08-24", "Wednesday");
 
     }
 
@@ -534,6 +535,55 @@ public class MealPlanner {
         output += String.format("Average daily carbohydrate consumption: %.2f g\n", week.getAvgCarbsPerDay());
         output += String.format("Average daily fat consumption: %.2f g\n", week.getAvgFatPerDay());
         output += String.format("Average daily protein consumption: %.2f g\n", week.getAvgProteinPerDay());
+
+        System.out.println(output);
+    }
+
+    /**
+     * Prints a summary of a given day of a week with a given anchor date,
+     * including daily nutritional information and a list of meals with their
+     * respective nutritional information and ingredients.
+     * 
+     * @param weekAnchorDate the anchor date of the target week.
+     * @param dayOfWeek      the name of the target day (e.g. Friday).
+     * @throws IllegalArgumentException if weekAnchorDate or dayOfWeek are null.
+     */
+    public void printDay(String weekAnchorDate, String dayOfWeek) {
+        if (weekAnchorDate == null || dayOfWeek == null) {
+            throw new IllegalArgumentException("Week anchor date and day of week cannot be null.");
+        }
+
+        Week week = getWeek(weekAnchorDate);
+        if (week == null) {
+            System.out.println(
+                    "[Error] Could not print a summary for the given day because the given week does not exist.");
+            return;
+        }
+
+        Day day = week.getDay(dayOfWeek);
+        if (day == null) {
+            System.out.println(
+                    "[Error] Could not print a summary for the given day because it does not exist.");
+            return;
+        }
+
+        String output = "\n---------------------------------------------------------------------------------------";
+
+        // Add header, including week, day of week, and a daily nutritional summary.
+        output += String.format("\n%s (week of %s)", dayOfWeek, formatDate(weekAnchorDate));
+        output += String.format("\n%.2f kcal | %.2f g carbs | %.2f g fat | %.2f g protein",
+                day.getCalories(), day.getCarbsTotal(), day.getFatTotal(), day.getProteinTotal());
+
+        // Add all meals for the given day and their ingredients.
+        for (Meal meal : day.getMeals()) {
+            output += String.format("\n\n\t%s (%.2f kcal, %.2f g carbs, %.2f g fat, %.2f g protein)", meal.getName(),
+                    meal.getCalories(), meal.getCarbsTotal(), meal.getFatTotal(), meal.getProteinTotal());
+            for (Ingredient ing : meal.getIngredients()) {
+                output += String.format("\n\t\t- %s (%.2f g)", ing.getName(), ing.getQuantity());
+            }
+        }
+
+        output += "\n---------------------------------------------------------------------------------------";
 
         System.out.println(output);
     }
