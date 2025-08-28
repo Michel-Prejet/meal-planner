@@ -16,8 +16,7 @@ public class MealPlanner {
     public static void main(String[] args) {
         MealPlanner mp = new MealPlanner();
         mp.loadDataFromCSV("data.csv");
-        mp.printWeek("2025-08-24");
-        mp.printWeek("2025-08-31");
+        mp.printShoppingList("2025-08-24");
 
     }
 
@@ -140,11 +139,11 @@ public class MealPlanner {
                     for (Meal meal : week.getDay(i).getMeals()) {
                         for (Ingredient ing : meal.getIngredients()) {
                             if (ing.hasNutrition()) {
-                                pw.printf("%s,%s,%s,%s,%f,%f,%f,%f\n", week.getAnchorDate(), this.DAYS_OF_THE_WEEK[i],
+                                pw.printf("%s,%s,%s,%s,%f,%f,%f,%f\n", week.getAnchorDate(), DAYS_OF_THE_WEEK[i],
                                         meal.getName(), ing.getName(), ing.getQuantity(), ing.getCarbsPer100Grams(),
                                         ing.getFatPer100Grams(), ing.getProteinPer100Grams());
                             } else {
-                                pw.printf("%s,%s,%s,%s,%f\n", week.getAnchorDate(), this.DAYS_OF_THE_WEEK[i],
+                                pw.printf("%s,%s,%s,%s,%f\n", week.getAnchorDate(), DAYS_OF_THE_WEEK[i],
                                         meal.getName(), ing.getName(), ing.getQuantity());
                             }
                         }
@@ -501,16 +500,12 @@ public class MealPlanner {
     public void printWeek(String weekAnchorDate) {
         Week week = getWeek(weekAnchorDate);
         if (week == null) {
-            System.out.println("[Error] Could not print nutritional summary because the given week does not exist.");
+            System.out.println("[Error] Could not print week overview because the given week does not exist.");
             return;
         }
 
-        // Get formatted date.
-        String[] dateTokens = Week.getDateFromString(weekAnchorDate);
-
         // Add header.
-        String output = String.format("\nWeek of %s %d, %d\n", dateTokens[1], Integer.parseInt(dateTokens[2]),
-                Integer.parseInt(dateTokens[0]));
+        String output = String.format("\nWeek of %s\n", formatDate(weekAnchorDate));
         for (String dayOfWeek : DAYS_OF_THE_WEEK) {
             output += String.format("%-" + COL_WIDTH + "s|", fitCell(dayOfWeek));
         }
@@ -541,6 +536,32 @@ public class MealPlanner {
         output += String.format("Average daily protein consumption: %.2f g\n", week.getAvgProteinPerDay());
 
         System.out.println(output);
+    }
+
+    /**
+     * Prints all ingredients required to prepare meals for a week with a given
+     * anchor date. The list includes ingredient names and quantities and is
+     * printed in alphabetical order (ascending).
+     * 
+     * @param weekAnchorDate the anchor date string for the target week.
+     * @throws IllegalArgumentException if the given anchor date is null.
+     */
+    public void printShoppingList(String weekAnchorDate) {
+        if (weekAnchorDate == null) {
+            throw new IllegalArgumentException("Week anchor date cannot be null.");
+        }
+
+        Week week = getWeek(weekAnchorDate);
+        if (week == null) {
+            System.out.println("[Error] Could not print shopping list because the given week does not exist.");
+            return;
+        }
+
+        ArrayList<Ingredient> list = sortIngredients(week.getAllIngredients());
+        System.out.printf("\nShopping list for the week of %s:", formatDate(weekAnchorDate));
+        for (Ingredient ing : list) {
+            System.out.printf("\n\t- %s (%.2f g)", ing.getName(), ing.getQuantity());
+        }
     }
 
     @Override
@@ -635,6 +656,85 @@ public class MealPlanner {
         }
 
         return s.substring(0, COL_WIDTH - 3) + "...";
+    }
+
+    /**
+     * @param date a date of the form YYYY-MM-DD to be formatted.
+     * @return a date of the form Month DayNumber, YearNumber (e.g. January 1,
+     *         2000).
+     * @throws IllegalArgumentException if the given date is improperly formatted
+     *                                  or invalid.
+     */
+    private String formatDate(String date) {
+        if (!DataValidator.validateDate(date)) {
+            throw new IllegalArgumentException("Could not format date because it is invalid.");
+        }
+
+        String[] dateTokens = Week.getDateFromString(date);
+        return String.format("%s %d, %d", dateTokens[1], Integer.parseInt(dateTokens[2]),
+                Integer.parseInt(dateTokens[0]));
+    }
+
+    /**
+     * Sorts an ArrayList of Ingredient in ascending order via merge sort. Uses
+     * Ingredient.compareTo(), which compares ingredients lexicographically by
+     * name.
+     * 
+     * @param list the ArrayList of Ingredient to sort.
+     * @return a new ArrayList of Ingredient containing the elements of the given
+     *         list sorted in ascending order by name.
+     * @throws IllegalArgumentException if the given list is null.
+     */
+    ArrayList<Ingredient> sortIngredients(ArrayList<Ingredient> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("Cannot sort a null ArrayList.");
+        }
+
+        if (list.size() <= 1) {
+            return new ArrayList<>(list);
+        }
+
+        int mid = list.size() / 2;
+        ArrayList<Ingredient> left = new ArrayList<>(list.subList(0, mid));
+        ArrayList<Ingredient> right = new ArrayList<>(list.subList(mid, list.size()));
+
+        return mergeArr(sortIngredients(left), sortIngredients(right));
+    }
+
+    /**
+     * Merges two sorted ArrayLists of Ingredient into a new list while preserving
+     * sorted order.
+     * 
+     * @param a1 the first sorted ArrayList.
+     * @param a2 the second sorted ArrayList.
+     * @return a new ArrayList of Ingredient containing all elements of a1
+     *         and a2 in ascending order.
+     * @throws IllegalArgumentException if either of a1 or a2 is null.
+     */
+    private ArrayList<Ingredient> mergeArr(ArrayList<Ingredient> a1, ArrayList<Ingredient> a2) {
+        if (a1 == null || a2 == null) {
+            throw new IllegalArgumentException("Cannot merge null ArrayLists.");
+        }
+
+        int i = 0, j = 0;
+        ArrayList<Ingredient> mergedArr = new ArrayList<Ingredient>(a1.size() + a2.size());
+
+        while (i < a1.size() && j < a2.size()) {
+            if (a1.get(i).compareTo(a2.get(j)) <= 0) {
+                mergedArr.add(a1.get(i++));
+            } else {
+                mergedArr.add(a2.get(j++));
+            }
+        }
+
+        while (i < a1.size()) {
+            mergedArr.add(a1.get(i++));
+        }
+        while (j < a2.size()) {
+            mergedArr.add(a2.get(j++));
+        }
+
+        return mergedArr;
     }
 
 }
