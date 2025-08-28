@@ -168,43 +168,6 @@ public class Week {
     }
 
     /**
-     * @return true if the given object is a week with the same anchor date as the
-     *         current instance; false otherwise.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Week) {
-            return ((Week) o).getAnchorDate().equals(this.weekAnchorDate);
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        String[] date = getDateFromString(this.weekAnchorDate);
-        String output = String.format("--- Week of %s %d, %d ---", date[1], Integer.parseInt(date[2]),
-                Integer.parseInt(date[0]));
-        for (int i = 0; i < DAYS_OF_THE_WEEK.length; i++) {
-            output += String.format("\n%s: ", DAYS_OF_THE_WEEK[i]);
-
-            // Build a string containing all meals for the current day.
-            String meals = "";
-            for (Meal meal : this.days[i].getMeals()) {
-                meals += meal.getName() + ", ";
-            }
-
-            // Remove trailing comma.
-            if (meals.lastIndexOf(",") != -1) {
-                output += meals.substring(0, meals.length() - 2);
-            } else {
-                output += "No meals";
-            }
-        }
-
-        return output;
-    }
-
-    /**
      * @param weeks  the ArrayList of Week to be searched.
      * @param anchor the anchor date of the target.
      * @return the week with a given anchor date in a given ArrayList of Week,
@@ -250,4 +213,59 @@ public class Week {
 
         return formattedDate;
     }
+
+    /**
+     * Compares this week with the given week by anchor date.
+     * 
+     * @param other the week to compare with this instance.
+     * @return a negative integer, zero, or a positive integer as this week's
+     *         anchor date is lexicographically less than, equal to, or
+     *         greater than the other's.
+     * @throws IllegalArgumentException if the given week is null.
+     */
+    public int compareTo(Week other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Week to compare cannot be null.");
+        }
+
+        return this.getAnchorDate().compareTo(other.getAnchorDate());
+    }
+
+    /**
+     * @return true if the given object is a week with the same anchor date as the
+     *         current instance; false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Week) {
+            return ((Week) o).getAnchorDate().equals(this.weekAnchorDate);
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        String[] date = getDateFromString(this.weekAnchorDate);
+        String output = String.format("--- Week of %s %d, %d ---", date[1], Integer.parseInt(date[2]),
+                Integer.parseInt(date[0]));
+        for (int i = 0; i < DAYS_OF_THE_WEEK.length; i++) {
+            output += String.format("\n%s: ", DAYS_OF_THE_WEEK[i]);
+
+            // Build a string containing all meals for the current day.
+            String meals = "";
+            for (Meal meal : this.days[i].getMeals()) {
+                meals += meal.getName() + ", ";
+            }
+
+            // Remove trailing comma.
+            if (meals.lastIndexOf(",") != -1) {
+                output += meals.substring(0, meals.length() - 2);
+            } else {
+                output += "No meals";
+            }
+        }
+
+        return output;
+    }
+
 }
