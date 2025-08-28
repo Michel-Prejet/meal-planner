@@ -438,6 +438,19 @@ public class MealPlanner {
     }
 
     /**
+     * Prints a list of all weeks in this meal planner sorted in ascending
+     * order by anchor date.
+     */
+    public void printAllWeeks() {
+        ArrayList<Week> sortedWeeks = sortWeeks();
+        String output = "\nWeeks:";
+        for (Week week : sortedWeeks) {
+            output += "\n\tWeek of " + formatDate(week.getAnchorDate());
+        }
+        System.out.println(output);
+    }
+
+    /**
      * @param weekAnchorDate the anchor date of the week to be printed.
      * @return a tabular representation of the week with the given anchor
      *         date, including meals and their Calories counts, average daily
@@ -681,7 +694,7 @@ public class MealPlanner {
      *         list sorted in ascending order by name.
      * @throws IllegalArgumentException if the given list is null.
      */
-    ArrayList<Ingredient> sortIngredients(ArrayList<Ingredient> list) {
+    private ArrayList<Ingredient> sortIngredients(ArrayList<Ingredient> list) {
         if (list == null) {
             throw new IllegalArgumentException("Cannot sort a null ArrayList.");
         }
@@ -731,6 +744,41 @@ public class MealPlanner {
         }
 
         return mergedArr;
+    }
+
+    /**
+     * Sorts an ArrayList of Week in ascending order via selection sort. Uses
+     * Week.compareTo(), which compares Weeks lexicographically by week anchor
+     * date.
+     * 
+     * @return a new ArrayList of Week containing the elements of weeklyPlans
+     *         sorted in ascending order by week anchor date.
+     */
+    private ArrayList<Week> sortWeeks() {
+        ArrayList<Week> list = new ArrayList<>(this.weeklyPlans);
+
+        if (list.size() <= 1) {
+            return list;
+        }
+
+        for (int i = 0; i < list.size() - 1; i++) {
+
+            // Find minimum in the unsorted sublist.
+            int min = i;
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(j).compareTo(list.get(min)) < 0) {
+                    min = j;
+                }
+            }
+
+            // Move minimum to position i.
+            if (min != i) {
+                Week temp = list.remove(min);
+                list.add(i, temp);
+            }
+        }
+
+        return list;
     }
 
 }
