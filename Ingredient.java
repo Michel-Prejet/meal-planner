@@ -195,6 +195,24 @@ public class Ingredient {
         return false;
     }
 
+    /**
+     * Compares this ingredient with the given ingredient by name (case-
+     * insensitive).
+     * 
+     * @param other the ingredient to compare with this instance.
+     * @return a negative integer, zero, or a positive integer as this
+     *         ingredient's name is lexicographically less than, equal to, or
+     *         greater than other's.
+     * @throws IllegalArgumentException if the given ingredient is null.
+     */
+    public int compareTo(Ingredient other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Ingredient to compare cannot be null.");
+        }
+
+        return this.getName().toLowerCase().compareTo(other.getName().toLowerCase());
+    }
+
     @Override
     public String toString() {
         String output = String.format("%s (%.2f g)\n", this.name, this.quantity);
