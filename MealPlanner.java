@@ -169,6 +169,7 @@ public class MealPlanner {
             return;
         }
         weeklyPlans.add(toAdd);
+        System.out.println(">> Added week of " + formatDate(toAdd.getAnchorDate()));
     }
 
     /**
@@ -178,6 +179,8 @@ public class MealPlanner {
     public void removeWeek(String weekAnchorDate) {
         if (!weeklyPlans.remove(new Week(weekAnchorDate))) {
             System.out.println("[Error] Week could not be removed because it doesn't exist.");
+        } else {
+            System.out.println(">> Removed week of " + formatDate(weekAnchorDate));
         }
     }
 
@@ -207,6 +210,7 @@ public class MealPlanner {
         }
 
         day.addMeal(meal);
+        System.out.println(">> Added meal: " + meal.getName());
     }
 
     /**
@@ -230,6 +234,8 @@ public class MealPlanner {
 
         if (!day.removeMeal(new Meal(mealName))) {
             System.out.println("[Error] Meal could not be removed because it doesn't exist.");
+        } else {
+            System.out.println(">> Removed meal: " + mealName);
         }
     }
 
@@ -270,6 +276,7 @@ public class MealPlanner {
         }
 
         meal.addIngredient(ing);
+        System.out.println(">> Added ingredient: " + ing.getName());
     }
 
     /**
@@ -363,6 +370,7 @@ public class MealPlanner {
         }
 
         ing.setQuantity(newQuantity);
+        System.out.println(">> Modified ingredient quantity: " + ing.getName() + " -> " + newQuantity + " g");
     }
 
     /**
@@ -399,6 +407,7 @@ public class MealPlanner {
         }
 
         meal.removeIngredient(ing);
+        System.out.println(">> Removed ingredient: " + ing.getName());
     }
 
     /**
