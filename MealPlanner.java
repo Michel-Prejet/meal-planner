@@ -1,3 +1,20 @@
+
+/**
+ * Implements core functions of the meal planner. Contains an ArrayList of Week
+ * containing all weeks in the meal planner.
+ * 
+ * Provides methods to persist data across program executions, including loading
+ * existing data from a CSV file, and saving current data to a CSV file
+ * (overwriting its contents). Also contains methods that allow the user
+ * to interact with the meal planner by adding/removing weeks, meals, and 
+ * ingredients, and changing ingredient quantities. Additionally, methods are 
+ * included to print/summarize a given week or a given day, and to print a 
+ * shopping list of ingredients in alphabetical order.
+ * 
+ * @author Michel Préjet
+ * @version 2025-08-28
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,14 +29,6 @@ public class MealPlanner {
             "Saturday" };
     private static final int COL_WIDTH = 16;
     private static final int LINE_WIDTH = (COL_WIDTH + 1) * DAYS_IN_WEEK;
-
-    public static void main(String[] args) {
-        MealPlanner mp = new MealPlanner();
-        mp.loadDataFromCSV("data.csv");
-        mp.printShoppingList("2025-08-24");
-        mp.printDay("2025-08-24", "Wednesday");
-
-    }
 
     /**
      * Constructs a new Meal Planner with an empty Week ArrayList.
@@ -408,78 +417,6 @@ public class MealPlanner {
 
         meal.removeIngredient(ing);
         System.out.println(">> Removed ingredient: " + ing.getName());
-    }
-
-    /**
-     * @param weekAnchorDate the anchor date of the week for which average daily
-     *                       carbohydrate consumption should be calculated.
-     * @return the average daily carbohydrate consumption for the week with
-     *         the given anchor date, or -1.0 if no such week exists.
-     */
-    public double getAvgDailyCarbsForWeek(String weekAnchorDate) {
-        Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out
-                    .println(
-                            "[Error] Could not calculate average daily carbohydrate consumption because the given week does not exist.");
-            return -1.0;
-        }
-
-        return week.getAvgCarbsPerDay();
-    }
-
-    /**
-     * @param weekAnchorDate the anchor date of the week for which average daily
-     *                       fat consumption should be calculated.
-     * @return the average daily fat consumption for the week with
-     *         the given anchor date, or -1.0 if no such week exists.
-     */
-    public double getAvgDailyFatForWeek(String weekAnchorDate) {
-        Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out
-                    .println(
-                            "[Error] Could not calculate average daily fat consumption because the given week does not exist.");
-            return -1.0;
-        }
-
-        return week.getAvgFatPerDay();
-    }
-
-    /**
-     * @param weekAnchorDate the anchor date of the week for which average daily
-     *                       protein consumption should be calculated.
-     * @return the average daily protein consumption for the week with
-     *         the given anchor date, or -1.0 if no such week exists.
-     */
-    public double getAvgDailyProteinForWeek(String weekAnchorDate) {
-        Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out
-                    .println(
-                            "[Error] Could not calculate average daily protein consumption because the given week does not exist.");
-            return -1.0;
-        }
-
-        return week.getAvgProteinPerDay();
-    }
-
-    /**
-     * @param weekAnchorDate the anchor date of the week for which average daily
-     *                       Calorie intake should be calculated.
-     * @return the average daily Calorie intake for the week with
-     *         the given anchor date, or -1.0 if no such week exists.
-     */
-    public double getAvgDailyCaloriesForWeek(String weekAnchorDate) {
-        Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out
-                    .println(
-                            "[Error] Could not calculate average daily calories because the given week does not exist.");
-            return -1.0;
-        }
-
-        return week.getAvgCaloriesPerDay();
     }
 
     /**
