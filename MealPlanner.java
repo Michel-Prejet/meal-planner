@@ -12,7 +12,7 @@
  * shopping list of ingredients in alphabetical order.
  * 
  * @author Michel Préjet
- * @version 2025-08-28
+ * @version 2025-08-29
  */
 
 import java.io.BufferedReader;
@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class MealPlanner {
     private ArrayList<Week> weeklyPlans;
     private static final int DAYS_IN_WEEK = 7;
-    private static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-            "Saturday" };
     private static final int COL_WIDTH = 16;
     private static final int LINE_WIDTH = (COL_WIDTH + 1) * DAYS_IN_WEEK;
 
@@ -149,11 +147,11 @@ public class MealPlanner {
                     for (Meal meal : week.getDay(i).getMeals()) {
                         for (Ingredient ing : meal.getIngredients()) {
                             if (ing.hasNutrition()) {
-                                pw.printf("%s,%s,%s,%s,%f,%f,%f,%f\n", week.getAnchorDate(), DAYS_OF_THE_WEEK[i],
+                                pw.printf("%s,%s,%s,%s,%f,%f,%f,%f\n", week.getAnchorDate(), Week.DAYS_OF_THE_WEEK[i],
                                         meal.getName(), ing.getName(), ing.getQuantity(), ing.getCarbsPer100Grams(),
                                         ing.getFatPer100Grams(), ing.getProteinPer100Grams());
                             } else {
-                                pw.printf("%s,%s,%s,%s,%f\n", week.getAnchorDate(), DAYS_OF_THE_WEEK[i],
+                                pw.printf("%s,%s,%s,%s,%f\n", week.getAnchorDate(), Week.DAYS_OF_THE_WEEK[i],
                                         meal.getName(), ing.getName(), ing.getQuantity());
                             }
                         }
@@ -486,7 +484,7 @@ public class MealPlanner {
 
         // Add header.
         String output = String.format("\nWeek of %s\n", formatDate(weekAnchorDate));
-        for (String dayOfWeek : DAYS_OF_THE_WEEK) {
+        for (String dayOfWeek : Week.DAYS_OF_THE_WEEK) {
             output += String.format("%-" + COL_WIDTH + "s|", fitCell(dayOfWeek));
         }
         output += "\n";
@@ -568,6 +566,91 @@ public class MealPlanner {
     }
 
     /**
+     * Prints a meal given a week anchor date, a day of the week, and a meal
+     * name, using the corresponding meal's overridden toString() method, if
+     * such a meal exists.
+     * 
+     * @param weekAnchorDate the anchor date of the week in which the meal is
+     *                       found.
+     * @param dayOfWeek      the day of the week in which the meal is found.
+     * @param mealName       the name of the meal to be printed.
+     * @throws IllegalArgumentException if weekAnchorDate, dayOfWeek, or mealName
+     *                                  are null.
+     */
+    public void printMeal(String weekAnchorDate, String dayOfWeek, String mealName) {
+        if (weekAnchorDate == null || dayOfWeek == null || mealName == null) {
+            throw new IllegalArgumentException("Week anchor date, day of week, and meal name cannot be null.");
+        }
+
+        Week week = getWeek(weekAnchorDate);
+        if (week == null) {
+            System.out.println("[Error] Could not print the given meal because the given week does not exist.");
+            return;
+        }
+
+        Day day = week.getDay(dayOfWeek);
+        if (day == null) {
+            System.out.println("[Error] Could print the given meal because the given day of the week is invalid.");
+            return;
+        }
+
+        Meal meal = day.getMeal(new Meal(mealName));
+        if (meal == null) {
+            System.out.println("[Error] Could not print the given meal because it does not exist.");
+            return;
+        }
+
+        System.out.println(meal);
+    }
+
+    /**
+     * Prints an ingredient given a week anchor date, a day of the week, a meal
+     * name, and an ingredient name, using the corresponding ingredient's
+     * overridden toString() method, if such an ingredient exists.
+     * 
+     * @param weekAnchorDate the anchor date of the week in which the ingredient is
+     *                       found.
+     * @param dayOfWeek      the day of the week in which the ingredient is found.
+     * @param mealName       the meal in which the ingredient is found.
+     * @param ingName        the name of the ingredient to be printed.
+     * @throws IllegalArgumentException if weekAnchorDate, dayOfWeek, mealName,
+     *                                  or ingName are null.
+     */
+    public void printIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingName) {
+        if (weekAnchorDate == null || dayOfWeek == null || mealName == null || ingName == null) {
+            throw new IllegalArgumentException(
+                    "Week anchor date, day of week, meal name, and ingredient name cannot be null.");
+        }
+
+        Week week = getWeek(weekAnchorDate);
+        if (week == null) {
+            System.out.println("[Error] Could not print the given ingredient because the given week does not exist.");
+            return;
+        }
+
+        Day day = week.getDay(dayOfWeek);
+        if (day == null) {
+            System.out
+                    .println("[Error] Could print the given ingredient because the given day of the week is invalid.");
+            return;
+        }
+
+        Meal meal = day.getMeal(new Meal(mealName));
+        if (meal == null) {
+            System.out.println("[Error] Could not print the given ingredient because the given meal does not exist.");
+            return;
+        }
+
+        Ingredient ing = meal.getIngredient(ingName);
+        if (ing == null) {
+            System.out.println("[Error] Could not print the given ingredient because it does not exist.");
+            return;
+        }
+
+        System.out.println(ing);
+    }
+
+    /**
      * Prints all ingredients required to prepare meals for a week with a given
      * anchor date. The list includes ingredient names and quantities and is
      * printed in alphabetical order (ascending).
@@ -617,7 +700,7 @@ public class MealPlanner {
         int row = 0;
         while (mealCount < maxRows / 3) {
             for (int i = 0; i < DAYS_IN_WEEK; i++) {
-                Day currDay = week.getDay(DAYS_OF_THE_WEEK[i]);
+                Day currDay = week.getDay(Week.DAYS_OF_THE_WEEK[i]);
                 ArrayList<Meal> meals = currDay.getMeals();
 
                 if (mealCount < meals.size()) {
@@ -651,7 +734,7 @@ public class MealPlanner {
     private int getMaxNumRows(Week week) {
         int max = 0;
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
-            Day curr = week.getDay(DAYS_OF_THE_WEEK[i]);
+            Day curr = week.getDay(Week.DAYS_OF_THE_WEEK[i]);
             int count = curr.getMeals().size() * 3;
             if (count > max) {
                 max = count;
