@@ -259,7 +259,12 @@ public class MealPlanner {
      * @param quantity       the quantity of the ingredient to be added.
      */
     public void addIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingredientName,
-            double quantity) {
+            String quantity) {
+        if (!DataValidator.isValidDouble(quantity)) {
+            System.out.println("[Error] Ingredient could not be added because the given quantity is invalid.");
+            return;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
         if (week == null) {
             System.out.println("[Error] Ingredient could not be added because the given week does not exist.");
@@ -278,7 +283,7 @@ public class MealPlanner {
             return;
         }
 
-        Ingredient ing = new Ingredient(ingredientName, quantity);
+        Ingredient ing = new Ingredient(ingredientName, Double.parseDouble(quantity));
         if (meal.getIngredients().contains(ing)) {
             System.out.println("[Error] Ingredient could not be added because it already exists.");
             return;
@@ -305,7 +310,14 @@ public class MealPlanner {
      *                       to be added.
      */
     public void addIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingredientName,
-            double quantity, double carbsPer100, double fatPer100, double proteinPer100) {
+            String quantity, String carbsPer100, String fatPer100, String proteinPer100) {
+        if (!DataValidator.isValidDouble(quantity) || !DataValidator.isValidDouble(carbsPer100)
+                || !DataValidator.isValidDouble(fatPer100) || !DataValidator.isValidDouble(proteinPer100)) {
+            System.out.println(
+                    "[Error] Ingredient could not be added because the given quantity or macronutrient amounts are invalid.");
+            return;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
         if (week == null) {
             System.out.println("[Error] Ingredient could not be added because the given week does not exist.");
@@ -324,7 +336,8 @@ public class MealPlanner {
             return;
         }
 
-        Ingredient ing = new Ingredient(ingredientName, quantity, carbsPer100, fatPer100, proteinPer100);
+        Ingredient ing = new Ingredient(ingredientName, Double.parseDouble(quantity), Double.parseDouble(carbsPer100),
+                Double.parseDouble(fatPer100), Double.parseDouble(proteinPer100));
         if (meal.getIngredients().contains(ing)) {
             System.out.println("[Error] Ingredient could not be added because it already exists.");
             return;
@@ -343,9 +356,16 @@ public class MealPlanner {
      * @param newQuantity    the new quantity of the ingredient.
      */
     public void changeIngredientQuantity(String weekAnchorDate, String dayOfWeek, String mealName,
-            String ingredientName, double newQuantity) {
+            String ingredientName, String newQuantity) {
+        if (!DataValidator.isValidDouble(newQuantity)) {
+            System.out.println(
+                    "[Error] Ingredient quantity could not be modified because the given quantity is invalid.");
+            return;
+        }
+        Double newQuantityParsed = Double.parseDouble(newQuantity);
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (newQuantity <= 0) {
+        if (newQuantityParsed <= 0) {
             System.out.println(
                     "[Error] Ingredient quantity could not be modified because the given quantity is zero or negative.");
             return;
@@ -378,8 +398,8 @@ public class MealPlanner {
             return;
         }
 
-        ing.setQuantity(newQuantity);
-        System.out.println(">> Modified ingredient quantity: " + ing.getName() + " -> " + newQuantity + " g");
+        ing.setQuantity(newQuantityParsed);
+        System.out.println(">> Modified ingredient quantity: " + ing.getName() + " -> " + newQuantityParsed + " g");
     }
 
     /**
@@ -443,9 +463,9 @@ public class MealPlanner {
      */
     public void printAllWeeks() {
         ArrayList<Week> sortedWeeks = sortWeeks();
-        String output = "\nWeeks:";
+        String output = "\nAvailable weeks:";
         for (Week week : sortedWeeks) {
-            output += "\n\tWeek of " + formatDate(week.getAnchorDate());
+            output += "\nWeek of " + formatDate(week.getAnchorDate());
         }
         System.out.println(output);
     }
@@ -495,7 +515,7 @@ public class MealPlanner {
         output += String.format("Average daily fat consumption: %.2f g\n", week.getAvgFatPerDay());
         output += String.format("Average daily protein consumption: %.2f g\n", week.getAvgProteinPerDay());
 
-        System.out.println(output);
+        System.out.print(output);
     }
 
     /**
