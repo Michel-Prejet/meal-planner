@@ -342,6 +342,7 @@ public class MealPlanner {
         }
 
         meal.addIngredient(ing);
+        System.out.println(">> Added ingredient: " + ing.getName());
     }
 
     /**
