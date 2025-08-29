@@ -215,7 +215,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        String output = String.format("%s (%.2f g)\n", this.name, this.quantity);
+        String output = String.format("\n%s (%.2f g)\n", this.name, this.quantity);
         if (this.hasNutritionalFacts) {
             output += String.format("\t%.2f g carbohydrates\n", this.getCarbsTotal());
             output += String.format("\t%.2f g fat\n", this.getFatTotal());

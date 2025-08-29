@@ -146,7 +146,7 @@ public class Meal {
 
     @Override
     public String toString() {
-        String output = String.format("%s (%.2f Calories)", this.name, this.getCalories());
+        String output = String.format("\n%s (%.2f Calories)", this.name, this.getCalories());
 
         if (this.ingredients.size() > 0) {
             output += "\n\tIngredients:";
