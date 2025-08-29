@@ -1,3 +1,16 @@
+
+/**
+ * Command line interface for the meal planner program. 
+ * 
+ * Allows the user to navigate across each level of the meal planner, adding/removing,
+ * viewing, and updating elements. 
+ * Persists data across program executions by loading previous data from a file,
+ * then overwriting that file with the current data before the program terminates.
+ * 
+ * @author Michel Préjet
+ * @version 2025-08-29
+ */
+
 import java.util.Scanner;
 
 public class MealPlannerApp {
@@ -92,6 +105,9 @@ public class MealPlannerApp {
         System.out.print("Enter choice: ");
     }
 
+    /**
+     * Processes and executes the user's selection from the main menu.
+     */
     public static void executeChoiceMain() {
         boolean exit = false;
         while (!exit) {
@@ -111,7 +127,7 @@ public class MealPlannerApp {
                     break;
                 case "0":
                     exit = true;
-                    break;
+                    return;
                 default:
                     System.out.println("[Error] Unrecognized input.");
             }
@@ -119,6 +135,11 @@ public class MealPlannerApp {
         }
     }
 
+    /**
+     * Allows the user to navigate through each level of the meal planner
+     * (Weeks, Days, Meals, and Ingredients) and add/remove, view, and modify
+     * elements.
+     */
     public static void changeSelection() {
         System.out.println("\n------------ CHANGE SELECTION ------------");
         System.out.println("Enter 'help' to view a list of commands");
@@ -225,8 +246,7 @@ public class MealPlannerApp {
             System.out.print("Enter the name of the meal: ");
             String mealName = in.nextLine().trim();
 
-            planner.addMeal(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex], mealName);
-            currMeal = currWeek.getDay(Week.DAYS_OF_THE_WEEK[currDayIndex]).getMeal(new Meal(mealName));
+            currMeal = planner.addMeal(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex], mealName);
         }
         // Week level - get shopping list
         else if (currWeek != null) {
