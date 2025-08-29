@@ -41,7 +41,7 @@ public class Meal {
      */
     public Ingredient getIngredient(String ingredientName) {
         for (Ingredient ing : this.ingredients) {
-            if (ing.getName().equals(ingredientName)) {
+            if (ing.getName().toLowerCase().equals(ingredientName.toLowerCase())) {
                 return ing;
             }
         }
@@ -139,7 +139,7 @@ public class Meal {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Meal) {
-            return ((Meal) o).getName().equals(this.name);
+            return ((Meal) o).getName().equalsIgnoreCase(this.name);
         }
         return false;
     }
