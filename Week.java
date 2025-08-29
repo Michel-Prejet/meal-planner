@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Week {
     private String weekAnchorDate; // YYYY-MM-DD
     private Day[] days;
-    private static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+    public static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday" };
 
     /**
