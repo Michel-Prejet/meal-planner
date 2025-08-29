@@ -6,7 +6,7 @@
  * and nutrient content for the whole meal.
  * 
  * @author Michel Préjet
- * @version 2025-08-21
+ * @version 2025-08-29
  */
 
 import java.util.ArrayList;

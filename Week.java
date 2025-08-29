@@ -10,7 +10,7 @@
  * Calories consumed per day.
  * 
  * @author Michel Préjet
- * @version 2025-08-25
+ * @version 2025-08-29
  */
 
 import java.util.ArrayList;
