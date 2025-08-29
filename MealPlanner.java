@@ -170,6 +170,12 @@ public class MealPlanner {
      *                       planner.
      */
     public void addWeek(String weekAnchorDate) {
+        if (!DataValidator.validateString(weekAnchorDate) || !DataValidator.validateDate(weekAnchorDate)) {
+            System.out.println(
+                    "[Error] Week not could not be added because the anchor date is invalid.");
+            return;
+        }
+
         Week toAdd = new Week(weekAnchorDate);
         if (this.weeklyPlans.contains(toAdd)) {
             System.out.println("[Error] Week could not be added because it already exists.");
@@ -184,6 +190,12 @@ public class MealPlanner {
      *                       planner.
      */
     public void removeWeek(String weekAnchorDate) {
+        if (!DataValidator.validateString(weekAnchorDate)) {
+            System.out.println(
+                    "[Error] Week could not be removed because the given anchor date is null, empty, or only whitespace.");
+            return;
+        }
+
         if (!weeklyPlans.remove(new Week(weekAnchorDate))) {
             System.out.println("[Error] Week could not be removed because it doesn't exist.");
         } else {
@@ -196,28 +208,27 @@ public class MealPlanner {
      *                       be added.
      * @param dayOfWeek      the day of the week to which the meal should be added.
      * @param mealName       the name of the meal to be added.
+     * @return the meal that was added, or null if no meal was successfully added.
      */
-    public void addMeal(String weekAnchorDate, String dayOfWeek, String mealName) {
+    public Meal addMeal(String weekAnchorDate, String dayOfWeek, String mealName) {
+        if (!DataValidator.validateString(mealName)) {
+            System.out.println(
+                    "[Error] Meal could not be added because the given name is null, empty, or only whitespace.");
+            return null;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Meal could not be added because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Meal could not be added because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = new Meal(mealName);
+
         if (day.getMeals().contains(meal)) {
             System.out.println("[Error] Meal could not be added because it already exists.");
-            return;
+            return null;
         }
 
         day.addMeal(meal);
         System.out.println(">> Added meal: " + meal.getName());
+        return meal;
     }
 
     /**
@@ -227,17 +238,14 @@ public class MealPlanner {
      * @param mealName       the name of the meal to be removed.
      */
     public void removeMeal(String weekAnchorDate, String dayOfWeek, String mealName) {
-        Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Meal could not be removed because the given week does not exist.");
+        if (!DataValidator.validateString(mealName)) {
+            System.out.println(
+                    "[Error] Meal could not be removed because the given name is null, empty, or only whitespace.");
             return;
         }
 
+        Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Meal could not be removed because the given day of the week is invalid.");
-            return;
-        }
 
         if (!day.removeMeal(new Meal(mealName))) {
             System.out.println("[Error] Meal could not be removed because it doesn't exist.");
@@ -258,30 +266,28 @@ public class MealPlanner {
      */
     public void addIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingredientName,
             String quantity) {
+        if (!DataValidator.validateString(ingredientName)) {
+            System.out.println(
+                    "[Error] Could not add ingredient because the given name is null, empty, or only whitespace.");
+            return;
+        }
+
         if (!DataValidator.isValidDouble(quantity)) {
             System.out.println("[Error] Ingredient could not be added because the given quantity is invalid.");
             return;
         }
 
+        Double quantityParsed = Double.parseDouble(quantity);
+        if (quantityParsed <= 0) {
+            System.out.println("[Error] Ingredient could not be added because the given quantity is zero or negative.");
+            return;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Ingredient could not be added because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Ingredient could not be added because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println("[Error] Ingredient could not be added because the given meal does not exist.");
-            return;
-        }
+        Ingredient ing = new Ingredient(ingredientName, quantityParsed);
 
-        Ingredient ing = new Ingredient(ingredientName, Double.parseDouble(quantity));
         if (meal.getIngredients().contains(ing)) {
             System.out.println("[Error] Ingredient could not be added because it already exists.");
             return;
@@ -309,6 +315,12 @@ public class MealPlanner {
      */
     public void addIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingredientName,
             String quantity, String carbsPer100, String fatPer100, String proteinPer100) {
+        if (DataValidator.validateString(ingredientName)) {
+            System.out.println(
+                    "[Error] Could not add ingredient because the given name is null, empty, or only whitespace.");
+            return;
+        }
+
         if (!DataValidator.isValidDouble(quantity) || !DataValidator.isValidDouble(carbsPer100)
                 || !DataValidator.isValidDouble(fatPer100) || !DataValidator.isValidDouble(proteinPer100)) {
             System.out.println(
@@ -316,26 +328,23 @@ public class MealPlanner {
             return;
         }
 
+        double quantityParsed = Double.parseDouble(quantity);
+        double carbsParsed = Double.parseDouble(carbsPer100);
+        double fatParsed = Double.parseDouble(fatPer100);
+        double proteinParsed = Double.parseDouble(proteinPer100);
+
+        if (quantityParsed <= 0 || carbsParsed < 0 || fatParsed < 0 || proteinParsed < 0) {
+            System.out.println(
+                    "[Error] Ingredient could not be added because the given quantity is zero negative, or the given macronutrient amounts are negative.");
+            return;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Ingredient could not be added because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Ingredient could not be added because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println("[Error] Ingredient could not be added because the given meal does not exist.");
-            return;
-        }
+        Ingredient ing = new Ingredient(ingredientName, quantityParsed, carbsParsed,
+                fatParsed, proteinParsed);
 
-        Ingredient ing = new Ingredient(ingredientName, Double.parseDouble(quantity), Double.parseDouble(carbsPer100),
-                Double.parseDouble(fatPer100), Double.parseDouble(proteinPer100));
         if (meal.getIngredients().contains(ing)) {
             System.out.println("[Error] Ingredient could not be added because it already exists.");
             return;
@@ -358,44 +367,21 @@ public class MealPlanner {
             String ingredientName, String newQuantity) {
         if (!DataValidator.isValidDouble(newQuantity)) {
             System.out.println(
-                    "[Error] Ingredient quantity could not be modified because the given quantity is invalid.");
+                    "[Error] Ingredient quantity could not be modified because the given quantity is not a valid number.");
             return;
         }
         Double newQuantityParsed = Double.parseDouble(newQuantity);
-
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
+
         if (newQuantityParsed <= 0) {
             System.out.println(
                     "[Error] Ingredient quantity could not be modified because the given quantity is zero or negative.");
             return;
         }
 
-        if (week == null) {
-            System.out.println(
-                    "[Error] Ingredient quantity could not be modified because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println(
-                    "[Error] Ingredient quantity could not be modified because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println(
-                    "[Error] Ingredient quantity could not be modified because the given meal does not exist.");
-            return;
-        }
-
         Ingredient ing = meal.getIngredient(ingredientName);
-        if (ing == null) {
-            System.out.println(
-                    "[Error] Ingredient quantity could not be modified because the given ingredient does not exist.");
-            return;
-        }
 
         ing.setQuantity(newQuantityParsed);
         System.out.println(">> Modified ingredient quantity: " + ing.getName() + " -> " + newQuantityParsed + " g");
@@ -410,25 +396,17 @@ public class MealPlanner {
      */
     public void removeIngredient(String weekAnchorDate, String dayOfWeek, String mealName,
             String ingredientName) {
+        if (!DataValidator.validateString(ingredientName)) {
+            System.out.println(
+                    "[Error] Could not remove ingredient because the given name is null, empty, or only whitespace.");
+            return;
+        }
+
         Week week = Week.getWeekByAnchor(this.weeklyPlans, weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Ingredient could not be removed because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Ingredient could not be removed because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println("[Error] Ingredient could not be removed because the given meal does not exist.");
-            return;
-        }
-
         Ingredient ing = meal.getIngredient(ingredientName);
+
         if (ing == null) {
             System.out.println("[Error] Ingredient could not be removed because it does not exist.");
             return;
@@ -446,13 +424,6 @@ public class MealPlanner {
      */
     public ArrayList<Ingredient> getWeekIngredientList(String weekAnchorDate) {
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out
-                    .println(
-                            "[Error] Could not retrieve ingredient list because the given week does not exist.");
-            return null;
-        }
-
         return week.getAllIngredients();
     }
 
@@ -478,10 +449,6 @@ public class MealPlanner {
      */
     public void printWeek(String weekAnchorDate) {
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Could not print week overview because the given week does not exist.");
-            return;
-        }
 
         // Add header.
         String output = String.format("\nWeek of %s\n", formatDate(weekAnchorDate));
@@ -527,28 +494,11 @@ public class MealPlanner {
      * @throws IllegalArgumentException if weekAnchorDate or dayOfWeek are null.
      */
     public void printDay(String weekAnchorDate, String dayOfWeek) {
-        if (weekAnchorDate == null || dayOfWeek == null) {
-            throw new IllegalArgumentException("Week anchor date and day of week cannot be null.");
-        }
-
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out.println(
-                    "[Error] Could not print a summary for the given day because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println(
-                    "[Error] Could not print a summary for the given day because it does not exist.");
-            return;
-        }
-
-        String output = "\n---------------------------------------------------------------------------------------";
 
         // Add header, including week, day of week, and a daily nutritional summary.
-        output += String.format("\n%s (week of %s)", dayOfWeek, formatDate(weekAnchorDate));
+        String output = String.format("\n%s (week of %s)", dayOfWeek, formatDate(weekAnchorDate));
         output += String.format("\n%.2f kcal | %.2f g carbs | %.2f g fat | %.2f g protein",
                 day.getCalories(), day.getCarbsTotal(), day.getFatTotal(), day.getProteinTotal());
 
@@ -560,8 +510,6 @@ public class MealPlanner {
                 output += String.format("\n\t\t- %s (%.2f g)", ing.getName(), ing.getQuantity());
             }
         }
-
-        output += "\n---------------------------------------------------------------------------------------";
 
         System.out.println(output);
     }
@@ -579,27 +527,9 @@ public class MealPlanner {
      *                                  are null.
      */
     public void printMeal(String weekAnchorDate, String dayOfWeek, String mealName) {
-        if (weekAnchorDate == null || dayOfWeek == null || mealName == null) {
-            throw new IllegalArgumentException("Week anchor date, day of week, and meal name cannot be null.");
-        }
-
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Could not print the given meal because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out.println("[Error] Could print the given meal because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println("[Error] Could not print the given meal because it does not exist.");
-            return;
-        }
 
         System.out.println(meal);
     }
@@ -618,35 +548,10 @@ public class MealPlanner {
      *                                  or ingName are null.
      */
     public void printIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingName) {
-        if (weekAnchorDate == null || dayOfWeek == null || mealName == null || ingName == null) {
-            throw new IllegalArgumentException(
-                    "Week anchor date, day of week, meal name, and ingredient name cannot be null.");
-        }
-
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Could not print the given ingredient because the given week does not exist.");
-            return;
-        }
-
         Day day = week.getDay(dayOfWeek);
-        if (day == null) {
-            System.out
-                    .println("[Error] Could print the given ingredient because the given day of the week is invalid.");
-            return;
-        }
-
         Meal meal = day.getMeal(new Meal(mealName));
-        if (meal == null) {
-            System.out.println("[Error] Could not print the given ingredient because the given meal does not exist.");
-            return;
-        }
-
         Ingredient ing = meal.getIngredient(ingName);
-        if (ing == null) {
-            System.out.println("[Error] Could not print the given ingredient because it does not exist.");
-            return;
-        }
 
         System.out.println(ing);
     }
@@ -665,11 +570,6 @@ public class MealPlanner {
         }
 
         Week week = getWeek(weekAnchorDate);
-        if (week == null) {
-            System.out.println("[Error] Could not print shopping list because the given week does not exist.");
-            return;
-        }
-
         ArrayList<Ingredient> list = sortIngredients(week.getAllIngredients());
         System.out.printf("\nShopping list for the week of %s:", formatDate(weekAnchorDate));
         for (Ingredient ing : list) {
