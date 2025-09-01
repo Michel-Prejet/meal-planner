@@ -6,7 +6,7 @@
  * and nutrient content for the whole meal.
  * 
  * @author Michel Préjet
- * @version 2025-08-29
+ * @version 2025-09-01
  */
 
 import java.util.ArrayList;
@@ -146,7 +146,7 @@ public class Meal {
 
     @Override
     public String toString() {
-        String output = String.format("\n%s (%.2f Calories)", this.name, this.getCalories());
+        String output = String.format("\n%s (%.2f kcal)", this.name, this.getCalories());
 
         if (this.ingredients.size() > 0) {
             output += "\n\tIngredients:";

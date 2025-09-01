@@ -6,7 +6,7 @@
  * stored quantity.
  * 
  * @author Michel Préjet
- * @version 2025-08-28
+ * @version 2025-09-01
  */
 
 public class Ingredient {
@@ -16,6 +16,7 @@ public class Ingredient {
     private double carbsPer100Gram;
     private double fatPer100Gram;
     private double proteinPer100Gram;
+
     private static final double KCAL_PER_GRAM_CARB = 4;
     private static final double KCAL_PER_GRAM_FAT = 9;
     private static final double KCAL_PER_GRAM_PROTEIN = 4;
@@ -220,7 +221,7 @@ public class Ingredient {
             output += String.format("\t%.2f g carbohydrates\n", this.getCarbsTotal());
             output += String.format("\t%.2f g fat\n", this.getFatTotal());
             output += String.format("\t%.2f g protein\n", this.getProteinTotal());
-            output += String.format("\t%.2f Calories", this.getCalories());
+            output += String.format("\t%.2f kcal", this.getCalories());
         } else {
             output += "\tNo nutritional profile";
         }
