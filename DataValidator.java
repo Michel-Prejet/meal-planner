@@ -6,7 +6,7 @@
  * to a double, validate dates, and validate lines of data read from CSV files.
  * 
  * @author Michel Préjet
- * @version 2025-08-24
+ * @version 2025-08-29
  */
 
 public class DataValidator {
@@ -149,10 +149,10 @@ public class DataValidator {
 
         // Validate the first six tokens.
         if (!validateDate(tokens[0]) // Week anchor date
-                || Week.getDayIndex(tokens[1]) == -1 // Day of week
-                || !validateString(tokens[2]) // Meal name
-                || !validateString(tokens[3]) // Ingredient name
-                || !isValidDouble(tokens[4])) { // Quantity
+                || (Week.getDayIndex(tokens[1]) == -1 && !tokens[1].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Day
+                || (!validateString(tokens[2]) && !tokens[2].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Meal name
+                || (!validateString(tokens[3]) && !tokens[3].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Ingredient name
+                || (!isValidDouble(tokens[4]) && !tokens[4].equals(MealPlanner.EMPTY_PLACEHOLDER))) { // Quantity
             return false;
         } else if (tokens.length == 5) {
             return true;
@@ -160,7 +160,8 @@ public class DataValidator {
 
         // Validate the remaining tokens (for lines which contain nutritional
         // information).
-        return isValidDouble(tokens[5]) && isValidDouble(tokens[6])
-                && isValidDouble(tokens[7]);
+        return (isValidDouble(tokens[5]) || tokens[5].equals(MealPlanner.EMPTY_PLACEHOLDER))
+                && (isValidDouble(tokens[6]) || tokens[6].equals(MealPlanner.EMPTY_PLACEHOLDER))
+                && (isValidDouble(tokens[7]) || tokens[7].equals(MealPlanner.EMPTY_PLACEHOLDER));
     }
 }
