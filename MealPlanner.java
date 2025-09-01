@@ -357,7 +357,7 @@ public class MealPlanner {
      */
     public void addIngredient(String weekAnchorDate, String dayOfWeek, String mealName, String ingredientName,
             String quantity, String carbsPer100, String fatPer100, String proteinPer100) {
-        if (DataValidator.validateString(ingredientName)) {
+        if (!DataValidator.validateString(ingredientName)) {
             System.out.println(
                     "[Error] Could not add ingredient because the given name is null, empty, or only whitespace.");
             return;
@@ -622,6 +622,7 @@ public class MealPlanner {
         for (Ingredient ing : list) {
             System.out.printf("\n\t- %s (%.2f g)", ing.getName(), ing.getQuantity());
         }
+        System.out.println();
     }
 
     @Override
