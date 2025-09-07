@@ -123,11 +123,11 @@ Current selection: mealplanner>
 4. Remove week
 0. Exit
 Enter choice: 3
-Enter the anchor date of the week (Sunday) in the form YYYY-MM-DD: 2025-08-24
->> Added week of August 24, 2025
+Enter the anchor date of the week (Sunday) in the form YYYY-MM-DD: 2025-09-14
+[SUCCESS] Added new week.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24> 
+Current selection: mealplanner>2025-09-14> 
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
@@ -136,17 +136,17 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24> help
+mealplanner>2025-09-14> help
 
 ------------ COMMANDS ------------
 clear: Clears the current selection
 back: Goes back one level
 main: Returns to the main menu
-mealplanner>2025-08-24> monday
-mealplanner>2025-08-24>Monday> main
+mealplanner>2025-09-14> monday
+mealplanner>2025-09-14>Monday> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday> 
+Current selection: mealplanner>2025-09-14>Monday> 
 1. Change selection
 2. View current day
 3. Add meal
@@ -154,10 +154,10 @@ Current selection: mealplanner>2025-08-24>Monday>
 0. Exit
 Enter choice: 3
 Enter the name of the meal: Hamburgers
->> Added meal: Hamburgers
+[SUCCESS] Added new meal.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -170,10 +170,10 @@ Do you want to include a nutritional profile (Y/N)? y
 Enter the amount of carbohydrates per 100 grams (in grams): 50.0
 Enter the amount of fat per 100 grams (in grams): 4.5
 Enter the amount of protein per 100 grams (in grams): 9
->> Added ingredient: Hamburger Buns
+[SUCCESS] Added new ingredient.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>Hamburger Buns>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>Hamburger Buns>
 1. Change selection
 2. View current ingredient
 3. Change ingredient quantity
@@ -187,7 +187,7 @@ Hamburger Buns (150.00 g)
         414.75 kcal
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>Hamburger Buns>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>Hamburger Buns>
 1. Change selection
 2. View current ingredient
 3. Change ingredient quantity
@@ -196,11 +196,11 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24>Monday>Hamburgers>Hamburger Buns> back
-mealplanner>2025-08-24>Monday>Hamburgers> main
+mealplanner>2025-09-14>Monday>Hamburgers>Hamburger Buns> back
+mealplanner>2025-09-14>Monday>Hamburgers> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -213,20 +213,20 @@ Do you want to include a nutritional profile (Y/N)? y
 Enter the amount of carbohydrates per 100 grams (in grams): 0
 Enter the amount of fat per 100 grams (in grams): 17
 Enter the amount of protein per 100 grams (in grams): 26.5
->> Added ingredient: Burgers
+[SUCCESS] Added new ingredient.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>Burgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>Burgers>
 1. Change selection
 2. View current ingredient
 3. Change ingredient quantity
 0. Exit
 Enter choice: 3
 Enter new quantity: 75
->> Modified ingredient quantity: Burgers -> 75.0 g
+[SUCCESS] Changed ingredient quantity.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>Burgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>Burgers>
 1. Change selection
 2. View current ingredient
 3. Change ingredient quantity
@@ -235,11 +235,11 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24>Monday>Hamburgers>Burgers> back
-mealplanner>2025-08-24>Monday>Hamburgers> main
+mealplanner>2025-09-14>Monday>Hamburgers>Burgers> back
+mealplanner>2025-09-14>Monday>Hamburgers> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -253,7 +253,7 @@ Hamburgers (609.00 kcal)
         - Burgers (75.00 g)
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Hamburgers>
+Current selection: mealplanner>2025-09-14>Monday>Hamburgers>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -263,11 +263,11 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24>Monday>Hamburgers> b
-mealplanner>2025-08-24>Monday> main
+mealplanner>2025-09-14>Monday>Hamburgers> b
+mealplanner>2025-09-14>Monday> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>
+Current selection: mealplanner>2025-09-14>Monday>
 1. Change selection
 2. View current day
 3. Add meal
@@ -275,7 +275,7 @@ Current selection: mealplanner>2025-08-24>Monday>
 0. Exit
 Enter choice: 2
 
-Monday (week of August 24, 2025)
+Monday (week of September 14, 2025)
 609.00 kcal | 75.00 g carbs | 19.50 g fat | 33.38 g protein
 
         Hamburgers (609.00 kcal, 75.00 g carbs, 19.50 g fat, 33.38 g protein)
@@ -283,7 +283,7 @@ Monday (week of August 24, 2025)
                 - Burgers (75.00 g)
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>
+Current selection: mealplanner>2025-09-14>Monday>
 1. Change selection
 2. View current day
 3. Add meal
@@ -291,10 +291,10 @@ Current selection: mealplanner>2025-08-24>Monday>
 0. Exit
 Enter choice: 3
 Enter the name of the meal: Pancakes
->> Added meal: Pancakes
+[SUCCESS] Added new meal.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Pancakes>
+Current selection: mealplanner>2025-09-14>Monday>Pancakes>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -304,10 +304,10 @@ Enter choice: 3
 Enter the name of the ingredient: Syrup
 Enter the quantity (in grams): 0
 Do you want to include a nutritional profile (Y/N)? n
-[Error] Ingredient could not be added because the given quantity is zero or negative.
+[ERROR] Ingredient quantity cannot be zero or negative.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Pancakes>
+Current selection: mealplanner>2025-09-14>Monday>Pancakes>
 1. Change selection
 2. View current meal
 3. Add ingredient
@@ -317,10 +317,10 @@ Enter choice: 3
 Enter the name of the ingredient: Syrup
 Enter the quantity (in grams): 5
 Do you want to include a nutritional profile (Y/N)? n
->> Added ingredient: Syrup
+[SUCCESS] Added new ingredient.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>Pancakes>Syrup>
+Current selection: mealplanner>2025-09-14>Monday>Pancakes>Syrup>
 1. Change selection
 2. View current ingredient
 3. Change ingredient quantity
@@ -329,20 +329,20 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24>Monday>Pancakes>Syrup> b
-mealplanner>2025-08-24>Monday>Pancakes> b
-mealplanner>2025-08-24>Monday> b
-mealplanner>2025-08-24> main
+mealplanner>2025-09-14>Monday>Pancakes>Syrup> b
+mealplanner>2025-09-14>Monday>Pancakes> b
+mealplanner>2025-09-14>Monday> b
+mealplanner>2025-09-14> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>
+Current selection: mealplanner>2025-09-14>
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
 0. Exit
 Enter choice: 2
 
-Week of August 24, 2025
+Week of September 14, 2025
 Sunday          |Monday          |Tuesday         |Wednesday       |Thursday        |Friday          |Saturday        |
 -----------------------------------------------------------------------------------------------------------------------
                 |Hamburgers      |                |                |                |                |                |
@@ -358,7 +358,7 @@ Average daily fat consumption: 2.79 g
 Average daily protein consumption: 4.77 g
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>
+Current selection: mealplanner>2025-09-14> 
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
@@ -367,11 +367,22 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24> mon
-mealplanner>2025-08-24>Monday> main
+mealplanner>2025-09-14> mon
+mealplanner>2025-09-14>Monday> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>
+Current selection: mealplanner>2025-09-14>Monday>
+1. Change selection
+2. View current day
+3. Add meal
+4. Remove meal
+0. Exit
+Enter choice: 4
+Enter the name of the meal: Hotdogs
+[ERROR] Meal does not exist.
+
+------------ MAIN MENU ------------
+Current selection: mealplanner>2025-09-14>Monday>
 1. Change selection
 2. View current day
 3. Add meal
@@ -379,10 +390,10 @@ Current selection: mealplanner>2025-08-24>Monday>
 0. Exit
 Enter choice: 4
 Enter the name of the meal: Pancakes
->> Removed meal: Pancakes
+[SUCCESS] Removed meal.
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>Monday>
+Current selection: mealplanner>2025-09-14>Monday>
 1. Change selection
 2. View current day
 3. Add meal
@@ -392,18 +403,18 @@ Enter choice: 1
 
 ------------ CHANGE SELECTION ------------
 Enter 'help' to view a list of commands
-mealplanner>2025-08-24>Monday> back
-mealplanner>2025-08-24> main
+mealplanner>2025-09-14>Monday> back
+mealplanner>2025-09-14> main
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>
+Current selection: mealplanner>2025-09-14>
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
 0. Exit
 Enter choice: 2
 
-Week of August 24, 2025
+Week of September 14, 2025
 Sunday          |Monday          |Tuesday         |Wednesday       |Thursday        |Friday          |Saturday        |
 -----------------------------------------------------------------------------------------------------------------------
                 |Hamburgers      |                |                |                |                |                |
@@ -416,19 +427,19 @@ Average daily fat consumption: 2.79 g
 Average daily protein consumption: 4.77 g
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>
+Current selection: mealplanner>2025-09-14>
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
 0. Exit
 Enter choice: 3
 
-Shopping list for the week of August 24, 2025:
+Shopping list for the week of September 14, 2025:
         - Burgers (75.00 g)
         - Hamburger Buns (150.00 g)
 
 ------------ MAIN MENU ------------
-Current selection: mealplanner>2025-08-24>
+Current selection: mealplanner>2025-09-14>
 1. Change selection
 2. View current week
 3. Get shopping list for the current week
@@ -450,6 +461,6 @@ Michel Préjet
 Computer Science Student, University of Manitoba
 [prejetm@myumanitoba.ca](mailto:prejetm@myumanitoba.ca)
 
-_Last updated: September 1, 2025_
+_Last updated: September 7, 2025_
 
 
