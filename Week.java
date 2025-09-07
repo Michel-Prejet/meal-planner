@@ -10,7 +10,7 @@
  * Calories consumed per day.
  * 
  * @author Michel Préjet
- * @version 2025-08-29
+ * @version 2025-09-06
  */
 
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public class Week {
     private String weekAnchorDate; // YYYY-MM-DD
     private Day[] days;
-    public static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+
+    private static final String[] DAYS_OF_THE_WEEK = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday" };
 
     /**
@@ -26,15 +27,13 @@ public class Week {
      * refer to any day in that week) and an empty array of Day of length 7.
      * 
      * @param weekAnchorDate the anchor date for the week, in YYYY-MM-DD format.
-     * @throws IllegalArgumentException if the given date is not a valid date of the
-     *                                  form YYYY-MM-DD.
+     * @throws ValidationException if {@code weekAnchorDate} is not a valid date of
+     *                             the form YYYY-MM-DD.
      */
     public Week(String weekAnchorDate) {
-        if (!DataValidator.validateDate(weekAnchorDate)) {
-            throw new IllegalArgumentException("The date must be a valid date of the form YYYY-MM-DD");
-        }
+        DataValidator.validateDate(weekAnchorDate, "Week anchor date");
 
-        this.weekAnchorDate = weekAnchorDate;
+        this.weekAnchorDate = weekAnchorDate.trim();
         this.days = new Day[] { new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day() };
     }
 
@@ -42,10 +41,14 @@ public class Week {
         return this.weekAnchorDate;
     }
 
+    public static String[] getDaysOfWeek() {
+        return DAYS_OF_THE_WEEK;
+    }
+
     /**
      * @param index the index of the day of the week to be retrieved.
-     * @return the day at a given index (e.g. 0 returns the Day object corresponding
-     *         to Sunday).
+     * @return the day at the given index (e.g. 0 returns the Day object
+     *         corresponding to Sunday), or null if no such day exists.
      */
     public Day getDay(int index) {
         if (index >= 0 && index < this.days.length) {
@@ -57,13 +60,16 @@ public class Week {
     /**
      * @param dayOfWeek the name of the day of the week to be retrieved.
      * @return the day with the given name.
+     * @throws ValidationException if the {@code dayOfWeek} is null or if it
+     *                             doesn't correspond to a valid day of the week.
      */
     public Day getDay(String dayOfWeek) {
         int index = getDayIndex(dayOfWeek);
         if (index != -1) {
-            return this.days[index];
+            return this.days[getDayIndex(dayOfWeek)];
+        } else {
+            throw new ValidationException("Day of week", ValidationException.INVALID_WEEKDAY_CODE);
         }
-        return null;
     }
 
     /**
@@ -145,20 +151,19 @@ public class Week {
     /**
      * @param dayOfWeek the day of the week (as a string) for which the index
      *                  should be retrieved.
-     * @return the index corresponding to the given day of the week (e.g. 0 for
-     *         "Sunday"), or -1 if the given day is invalid (not contained in
+     * @return the index corresponding to {@code dayOfWeek} (e.g. 0 for
+     *         "Sunday"), or -1 if {@code dayOfWeek} is invalid (not contained in
      *         DAYS_OF_THE_WEEK).
-     * @throws IllegalArgumentException if the given day of the week is null.
+     * @throws ValidationException if {@code dayOfWeek} of the week is null, empty,
+     *                             or only whitespace.
      */
     public static int getDayIndex(String dayOfWeek) {
-        if (dayOfWeek == null) {
-            throw new IllegalArgumentException("Day of week cannot be null.");
-        }
+        DataValidator.validateString(dayOfWeek, "Day of week");
 
         int dayIndex = -1;
-        dayOfWeek = dayOfWeek.trim().toLowerCase();
+        dayOfWeek = dayOfWeek.trim();
         for (int i = 0; i < DAYS_OF_THE_WEEK.length; i++) {
-            if (dayOfWeek.equals(DAYS_OF_THE_WEEK[i].toLowerCase())) {
+            if (dayOfWeek.equalsIgnoreCase(DAYS_OF_THE_WEEK[i])) {
                 dayIndex = i;
                 break;
             }
@@ -170,10 +175,17 @@ public class Week {
     /**
      * @param weeks  the ArrayList of Week to be searched.
      * @param anchor the anchor date of the target.
-     * @return the week with a given anchor date in a given ArrayList of Week,
+     * @return the week with the given anchor date in a given ArrayList of Week,
      *         or null if no such week was found.
+     * @throws ValidationException if {@code weeks} is null or if {@code anchor}
+     *                             is not a valid date of the form YYYY-MM-DD.
      */
     public static Week getWeekByAnchor(ArrayList<Week> weeks, String anchor) {
+        if (weeks == null) {
+            throw new ValidationException("ArrayList of weeks", ValidationException.NULL_ARGUMENT_CODE);
+        }
+        DataValidator.validateDate(anchor, "Week anchor date");
+
         for (Week week : weeks) {
             if (week.getAnchorDate().equals(anchor)) {
                 return week;
@@ -185,18 +197,14 @@ public class Week {
     /**
      * Converts a valid date of the form YYYY-MM-DD into an array of String
      * of length 3 containing the year, month name, and day (e.g. 2025-07-01
-     * becomes {"2025", "July", "01"}). Assumes that the given string has
-     * already been checked by validateDate(), but returns null if it is
-     * invalid.
+     * becomes {"2025", "July", "01"}).
      * 
      * @param date the string to be converted into an array of String.
-     * @return an array of String of the form {"Year", "Month name", "Day"}, or
-     *         null if the given string is invalid.
+     * @return an array of String of the form {"Year", "Month name", "Day"}.
+     * @throws ValidationException if {@code date} is invalid.
      */
     public static String[] getDateFromString(String date) {
-        if (!DataValidator.validateDate(date)) {
-            return null;
-        }
+        DataValidator.validateDate(date, "Date");
 
         String[] formattedDate = new String[3];
 
@@ -217,15 +225,15 @@ public class Week {
     /**
      * Compares this week with the given week by anchor date.
      * 
-     * @param other the week to compare with this instance.
+     * @param other the week to compare against.
      * @return a negative integer, zero, or a positive integer as this week's
      *         anchor date is lexicographically less than, equal to, or
-     *         greater than the other's.
-     * @throws IllegalArgumentException if the given week is null.
+     *         greater than that of {@code other}.
+     * @throws ValidationException if {@code other} is null.
      */
     public int compareTo(Week other) {
         if (other == null) {
-            throw new IllegalArgumentException("Week to compare cannot be null.");
+            throw new ValidationException("Week", ValidationException.NULL_ARGUMENT_CODE);
         }
 
         return this.getAnchorDate().compareTo(other.getAnchorDate());
@@ -267,5 +275,4 @@ public class Week {
 
         return output;
     }
-
 }

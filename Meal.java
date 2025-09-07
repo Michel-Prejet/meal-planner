@@ -6,7 +6,7 @@
  * and nutrient content for the whole meal.
  * 
  * @author Michel Préjet
- * @version 2025-09-01
+ * @version 2025-09-06
  */
 
 import java.util.ArrayList;
@@ -18,12 +18,13 @@ public class Meal {
     /**
      * Constructs a Meal with a given name and an empty ingredient list.
      * 
-     * @throws IllegalArgumentException if the given name is null, empty, or
-     *                                  only whitespace.
+     * @param name the name of the meal.
+     * @throws ValidationException if the given name is null, empty, or
+     *                             only whitespace.
      */
     public Meal(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Meal name cannot be null, empty, or only whitespace.");
+            throw new ValidationException("Meal name", ValidationException.INVALID_STRING_CODE);
         }
 
         this.name = name.trim();
@@ -36,12 +37,12 @@ public class Meal {
 
     /**
      * @param ingredientName the name of the ingredient to be returned.
-     * @return the ingredient with the given name in the meal, or null if no
-     *         such ingredient exists.
+     * @return the ingredient with {@code ingredientName} in the meal, or null if
+     *         no such ingredient exists.
      */
     public Ingredient getIngredient(String ingredientName) {
         for (Ingredient ing : this.ingredients) {
-            if (ing.getName().toLowerCase().equals(ingredientName.toLowerCase())) {
+            if (ing.getName().equalsIgnoreCase(ingredientName)) {
                 return ing;
             }
         }
@@ -57,27 +58,34 @@ public class Meal {
 
     /**
      * @param ing the ingredient to add to the meal.
-     * @return true if the given ingredient was added successfully; false
-     *         otherwise (if it was null or already in the ingredients ArrayList).
+     * @throws ValidationException if {@code ing} is null or if {@code ing} is
+     *                             already contained in the meal.
      */
-    public boolean addIngredient(Ingredient ing) {
-        if (ing != null && !this.ingredients.contains(ing)) {
-            this.ingredients.add(ing);
-            return true;
+    public void addIngredient(Ingredient ing) {
+        if (ing == null) {
+            throw new ValidationException("Ingredient", ValidationException.NULL_ARGUMENT_CODE);
         }
-        return false;
+
+        if (!this.ingredients.contains(ing)) {
+            this.ingredients.add(ing);
+        } else {
+            throw new ValidationException("Ingredient", ValidationException.ALREADY_EXISTS_CODE);
+        }
     }
 
     /**
      * @param ing the ingredient to remove from the meal.
-     * @return true if the given ingredient was removed successfully; false
-     *         otherwise (if it was null or not in the ingredients ArrayList).
+     * @throws ValidationException if {@code ing} is null or doesn't exist in the
+     *                             ingredients ArrayList.
      */
-    public boolean removeIngredient(Ingredient ing) {
-        if (ing != null) {
-            return this.ingredients.remove(ing);
+    public void removeIngredient(Ingredient ing) {
+        if (ing == null) {
+            throw new ValidationException("Ingredient", ValidationException.NULL_ARGUMENT_CODE);
         }
-        return false;
+
+        if (!this.ingredients.remove(ing)) {
+            throw new ValidationException("Ingredient", ValidationException.DOESNT_EXIST_CODE);
+        }
     }
 
     /**
@@ -133,6 +141,7 @@ public class Meal {
     }
 
     /**
+     * @param o the object to compare against.
      * @return true if the given object is a meal with the same name
      *         (case-insensitive) as the current instance.
      */

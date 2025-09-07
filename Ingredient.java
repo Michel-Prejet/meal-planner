@@ -6,7 +6,7 @@
  * stored quantity.
  * 
  * @author Michel Préjet
- * @version 2025-09-01
+ * @version 2025-09-06
  */
 
 public class Ingredient {
@@ -27,15 +27,14 @@ public class Ingredient {
      * 
      * @param name     name of the ingredient.
      * @param quantity amount of the ingredient (in grams).
-     * @throws IllegalArgumentException if the given name is null, empty, or only
-     *                                  whitespace, or if the given quantity is not
-     *                                  positive.
+     * @throws ValidationException if {@code name} is null, empty, or only
+     *                             whitespace, or if {@code quantity} is not
+     *                             positive.
      */
     public Ingredient(String name, double quantity) {
-        if (!DataValidator.validateString(name)) {
-            throw new IllegalArgumentException("Ingredient name cannot be null, empty, or only whitespace.");
-        } else if (quantity <= 0) {
-            throw new IllegalArgumentException("Ingredient quantity cannot be zero or negative.");
+        DataValidator.validateString(name, "Ingredient name");
+        if (quantity <= 0) {
+            throw new ValidationException("Ingredient quantity", ValidationException.NON_POSITIVE_VALUE_CODE);
         }
 
         this.name = name;
@@ -53,19 +52,18 @@ public class Ingredient {
      * @param carbsPer100Gram   grams of carbohydrates per 100 grams of ingredient.
      * @param fatPer100Gram     grams of fat per 100 grams of ingredient.
      * @param proteinPer100Gram grams of protein per 100 grams of ingredient.
-     * @throws IllegalArgumentException if the given name is null, empty, or only
-     *                                  whitespace, if the given quantity is not
-     *                                  positive, or if the given nutritional values
-     *                                  are negative.
+     * @throws ValidationException if {@code name} is null, empty, or only
+     *                             whitespace, if {@code quantity} is not
+     *                             positive, or if the given nutritional values
+     *                             are negative.
      */
     public Ingredient(String name, double quantity, double carbsPer100Gram, double fatPer100Gram,
             double proteinPer100Gram) {
-        if (!DataValidator.validateString(name)) {
-            throw new IllegalArgumentException("Ingredient name cannot be null, empty, or only whitespace.");
-        } else if (quantity <= 0) {
-            throw new IllegalArgumentException("Ingredient quantity cannot be zero or negative.");
+        DataValidator.validateString(name, "Ingredient name");
+        if (quantity <= 0) {
+            throw new ValidationException("Ingredient quantity", ValidationException.NON_POSITIVE_VALUE_CODE);
         } else if (carbsPer100Gram < 0 || fatPer100Gram < 0 || proteinPer100Gram < 0) {
-            throw new IllegalArgumentException("Nutritional values per 100 grams cannot be negative.");
+            throw new ValidationException("Macronutrient quantity", ValidationException.NEGATIVE_VALUE_CODE);
         }
 
         this.name = name.trim();
@@ -88,6 +86,10 @@ public class Ingredient {
         return this.hasNutritionalFacts;
     }
 
+    /**
+     * @return grams of carbohydrates per 100 grams of the ingredient.
+     * @throws IllegalStateException if no nutritional profile is available.
+     */
     public double getCarbsPer100Grams() {
         if (this.hasNutritionalFacts) {
             return this.carbsPer100Gram;
@@ -96,6 +98,10 @@ public class Ingredient {
         }
     }
 
+    /**
+     * @return grams of fat per 100 grams of the ingredient.
+     * @throws IllegalStateException if no nutritional profile is available.
+     */
     public double getFatPer100Grams() {
         if (this.hasNutritionalFacts) {
             return this.fatPer100Gram;
@@ -104,6 +110,10 @@ public class Ingredient {
         }
     }
 
+    /**
+     * @return grams of protein per 100 grams of the ingredient.
+     * @throws IllegalStateException if no nutritional profile is available.
+     */
     public double getProteinPer100Grams() {
         if (this.hasNutritionalFacts) {
             return this.proteinPer100Gram;
@@ -164,11 +174,11 @@ public class Ingredient {
 
     /**
      * @param newQuantity the new amount for the ingredient.
-     * @throws IllegalArgumentException if the given quantity is not positive.
+     * @throws ValidationException if {@code newQuantity} is not positive.
      */
     public void setQuantity(double newQuantity) {
         if (newQuantity <= 0) {
-            throw new IllegalArgumentException("Ingredient quantity cannot be zero or negative.");
+            throw new ValidationException("Ingredient quantity", ValidationException.NON_POSITIVE_VALUE_CODE);
         }
 
         this.quantity = newQuantity;
@@ -184,6 +194,7 @@ public class Ingredient {
     }
 
     /**
+     * @param o the object to compare against.
      * @return true if the given object is an ingredient with the same name as the
      *         current instance (case-insensitive); false otherwise.
      */
@@ -197,18 +208,18 @@ public class Ingredient {
     }
 
     /**
-     * Compares this ingredient with the given ingredient by name (case-
+     * Compares this ingredient with {@code other} by name (case-
      * insensitive).
      * 
-     * @param other the ingredient to compare with this instance.
+     * @param other the ingredient to compare against.
      * @return a negative integer, zero, or a positive integer as this
      *         ingredient's name is lexicographically less than, equal to, or
      *         greater than other's.
-     * @throws IllegalArgumentException if the given ingredient is null.
+     * @throws ValidationException if {@code other} is null.
      */
     public int compareTo(Ingredient other) {
         if (other == null) {
-            throw new IllegalArgumentException("Ingredient to compare cannot be null.");
+            throw new ValidationException("Ingredient", ValidationException.NULL_ARGUMENT_CODE);
         }
 
         return this.getName().toLowerCase().compareTo(other.getName().toLowerCase());

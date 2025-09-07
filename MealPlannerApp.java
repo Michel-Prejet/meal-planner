@@ -3,12 +3,13 @@
  * Command line interface for the meal planner program. 
  * 
  * Allows the user to navigate across each level of the meal planner, adding/removing,
- * viewing, and updating elements. 
+ * viewing, and updating elements. Handles exceptions and prints success/error
+ * messages.
  * Persists data across program executions by loading previous data from a file,
  * then overwriting that file with the current data before the program terminates.
  * 
  * @author Michel Préjet
- * @version 2025-08-29
+ * @version 2025-09-07
  */
 
 import java.util.Scanner;
@@ -56,8 +57,8 @@ public class MealPlannerApp {
         if (currWeek != null) {
             output += currWeek.getAnchorDate() + ">";
 
-            if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
-                output += Week.DAYS_OF_THE_WEEK[currDayIndex] + ">";
+            if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
+                output += Week.getDaysOfWeek()[currDayIndex] + ">";
 
                 if (currMeal != null) {
                     output += currMeal.getName() + ">";
@@ -89,7 +90,7 @@ public class MealPlannerApp {
             System.out.println("2. View current meal");
             System.out.println("3. Add ingredient");
             System.out.println("4. Remove ingredient");
-        } else if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
+        } else if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
             System.out.println("2. View current day");
             System.out.println("3. Add meal");
             System.out.println("4. Remove meal");
@@ -183,17 +184,17 @@ public class MealPlannerApp {
     public static void mainOption2() {
         // Ingredient level - print ingredient
         if (currIng != null) {
-            planner.printIngredient(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
+            planner.printIngredient(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
                     currMeal.getName(), currIng.getName());
         }
         // Meal level - print meal
         else if (currMeal != null) {
-            planner.printMeal(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
+            planner.printMeal(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
                     currMeal.getName());
         }
         // Day level - print day
-        else if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
-            planner.printDay(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex]);
+        else if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
+            planner.printDay(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex]);
         }
         // Week level - print week
         else if (currWeek != null) {
@@ -209,8 +210,14 @@ public class MealPlannerApp {
         // Ingredient level - change ingredient quantity
         if (currIng != null) {
             System.out.print("Enter new quantity: ");
-            planner.changeIngredientQuantity(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
-                    currMeal.getName(), currIng.getName(), in.nextLine().trim());
+
+            try {
+                planner.changeIngredientQuantity(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
+                        currMeal.getName(), currIng.getName(), in.nextLine().trim());
+                System.out.println("[SUCCESS] Changed ingredient quantity.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
         // Meal level - add ingredient
         else if (currMeal != null) {
@@ -221,32 +228,42 @@ public class MealPlannerApp {
             String quantity = in.nextLine().trim();
 
             System.out.print("Do you want to include a nutritional profile (Y/N)? ");
-            String nutritionOption = in.nextLine().trim().toLowerCase();
+            String nutritionOption = in.nextLine().trim();
 
-            if (nutritionOption.equals("y") || nutritionOption.equals("yes")) {
-                System.out.print("Enter the amount of carbohydrates per 100 grams (in grams): ");
-                String carbs = in.nextLine().trim();
+            try {
+                if (nutritionOption.equalsIgnoreCase("y") || nutritionOption.equalsIgnoreCase("yes")) {
+                    System.out.print("Enter the amount of carbohydrates per 100 grams (in grams): ");
+                    String carbs = in.nextLine().trim();
 
-                System.out.print("Enter the amount of fat per 100 grams (in grams): ");
-                String fat = in.nextLine().trim();
+                    System.out.print("Enter the amount of fat per 100 grams (in grams): ");
+                    String fat = in.nextLine().trim();
 
-                System.out.print("Enter the amount of protein per 100 grams (in grams): ");
-                String protein = in.nextLine().trim();
+                    System.out.print("Enter the amount of protein per 100 grams (in grams): ");
+                    String protein = in.nextLine().trim();
 
-                planner.addIngredient(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
-                        currMeal.getName(), ingName, quantity, carbs, fat, protein);
-            } else {
-                planner.addIngredient(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
-                        currMeal.getName(), ingName, quantity);
+                    planner.addIngredient(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
+                            currMeal.getName(), ingName, quantity, carbs, fat, protein);
+                } else {
+                    planner.addIngredient(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
+                            currMeal.getName(), ingName, quantity);
+                }
+                currIng = currMeal.getIngredient(ingName);
+                System.out.println("[SUCCESS] Added new ingredient.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
             }
-            currIng = currMeal.getIngredient(ingName);
         }
         // Day level - add meal
-        else if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
+        else if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
             System.out.print("Enter the name of the meal: ");
             String mealName = in.nextLine().trim();
 
-            currMeal = planner.addMeal(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex], mealName);
+            try {
+                currMeal = planner.addMeal(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex], mealName);
+                System.out.println("[SUCCESS] Added new meal.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
         // Week level - get shopping list
         else if (currWeek != null) {
@@ -257,35 +274,58 @@ public class MealPlannerApp {
             System.out.print("Enter the anchor date of the week (Sunday) in the form YYYY-MM-DD: ");
             String anchorDate = in.nextLine().trim();
 
-            planner.addWeek(anchorDate);
-            currWeek = planner.getWeek(anchorDate);
+            try {
+                planner.addWeek(anchorDate);
+                currWeek = planner.getWeek(anchorDate);
+                System.out.println("[SUCCESS] Added new week.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
     }
 
     public static void mainOption4() {
         // Ingredient level - do nothing
         if (currIng != null) {
-            System.out.println("[Error] Unrecognized input.");
+            System.out.println("[ERROR] Unrecognized input.");
         }
         // Meal level - remove ingredient
         else if (currMeal != null) {
             System.out.print("Enter the name of the ingredient: ");
-            planner.removeIngredient(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex],
-                    currMeal.getName(), in.nextLine().trim());
+
+            try {
+                planner.removeIngredient(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex],
+                        currMeal.getName(), in.nextLine().trim());
+                System.out.println("[SUCCESS] Removed ingredient.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
         // Day level - remove meal
-        else if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
+        else if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
             System.out.print("Enter the name of the meal: ");
-            planner.removeMeal(currWeek.getAnchorDate(), Week.DAYS_OF_THE_WEEK[currDayIndex], in.nextLine().trim());
+
+            try {
+                planner.removeMeal(currWeek.getAnchorDate(), Week.getDaysOfWeek()[currDayIndex], in.nextLine().trim());
+                System.out.println("[SUCCESS] Removed meal.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
         // Week level - do nothing
         else if (currWeek != null) {
-            System.out.println("[Error] Unrecognized input.");
+            System.out.println("[ERROR] Unrecognized input.");
         }
         // Meal planner level - remove week
         else {
             System.out.print("Enter the anchor date of the week (Sunday) in the form YYYY-MM-DD: ");
-            planner.removeWeek(in.nextLine().trim());
+
+            try {
+                planner.removeWeek(in.nextLine().trim());
+                System.out.println("[SUCCESS] Removed week.");
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
+            }
         }
     }
 
@@ -302,23 +342,24 @@ public class MealPlannerApp {
     public static void nextLevel(String nextLevel) {
         // Ingredient level - do nothing
         if (currIng != null) {
-            System.out.println("[Error] Unrecognized input.");
+            System.out.println("[ERROR] Unrecognized input.");
         }
         // Meal level - select ingredient
         else if (currMeal != null) {
-            currIng = currMeal.getIngredient(nextLevel);
-
-            if (currIng == null) {
-                System.out.println("[Error] No ingredient exists with that name in the current meal.");
+            try {
+                currIng = currMeal.getIngredient(nextLevel);
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
             }
         }
         // Day level - select meal
-        else if (currDayIndex >= 0 && currDayIndex < Week.DAYS_OF_THE_WEEK.length) {
+        else if (currDayIndex >= 0 && currDayIndex < Week.getDaysOfWeek().length) {
             Day currDay = currWeek.getDay(currDayIndex);
-            currMeal = currDay.getMeal(new Meal(nextLevel));
 
-            if (currMeal == null) {
-                System.out.println("[Error] No meal exists with that name in the current day.");
+            try {
+                currMeal = currDay.getMeal(new Meal(nextLevel));
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
             }
         }
         // Week level - select day of week
@@ -362,15 +403,15 @@ public class MealPlannerApp {
                     currDayIndex = 6;
                     break;
                 default:
-                    System.out.println("[Error] Invalid day of the week.");
+                    System.out.println("[ERROR] Invalid day of the week.");
             }
         }
         // Meal planner level - select week
         else {
-            currWeek = planner.getWeek(nextLevel);
-
-            if (currWeek == null) {
-                System.out.println("[Error] No week exists with that anchor date (must be of format YYYY-MM-DD).");
+            try {
+                currWeek = planner.getWeek(nextLevel);
+            } catch (ValidationException ve) {
+                System.out.println("[ERROR] " + ve.getMessage());
             }
         }
     }

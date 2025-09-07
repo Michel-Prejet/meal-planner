@@ -6,7 +6,7 @@
  * and nutrient amounts for the day.
  * 
  * @author Michel Préjet
- * @version 2025-08-21
+ * @version 2025-09-06
  */
 
 import java.util.ArrayList;
@@ -23,34 +23,37 @@ public class Day {
 
     /**
      * @param meal the meal to add to the meals ArrayList.
-     * @throws IllegalArgumentException if the given meal is null.
+     * @throws ValidationException if the given meal is null.
      */
     public void addMeal(Meal meal) {
         if (meal == null) {
-            throw new IllegalArgumentException("Meal cannot be null.");
+            throw new ValidationException("Meal", ValidationException.NULL_ARGUMENT_CODE);
         }
         this.meals.add(meal);
     }
 
     /**
      * @param meal the meal to remove from the meals ArrayList.
-     * @return true if the meal was removed successfully; false otherwise (if
-     *         it wasn't found in the list).
-     * @throws IllegalArgumentException if the given meal is null.
+     * @throws ValidationException if {@code meal} is null or doesn't exist in
+     *                             the meals ArrayList.
      */
-    public boolean removeMeal(Meal meal) {
+    public void removeMeal(Meal meal) {
         if (meal == null) {
-            throw new IllegalArgumentException("Meal cannot be null.");
+            throw new ValidationException("Meal", ValidationException.NULL_ARGUMENT_CODE);
         }
-        return this.meals.remove(meal);
+
+        if (!this.meals.remove(meal)) {
+            throw new ValidationException("Meal", ValidationException.DOESNT_EXIST_CODE);
+        }
     }
 
     /**
-     * Retrieves the first meal in the current day which is equal to a given
-     * meal (but may not have the same memory address).
+     * Retrieves the first meal in the current day which is equal to {@code other}
+     * (but which may not have the same memory address).
      * 
      * @param other the meal to be searched for in the current day.
-     * @return the meal in the current day matching a given meal.
+     * @return the meal in the current day matching {@code other}, or null if no
+     *         such meal exists.
      */
     public Meal getMeal(Meal other) {
         for (Meal meal : this.meals) {
@@ -121,7 +124,7 @@ public class Day {
             output += this.meals.get(i).getName() + ", ";
         }
         if (arrSize > 0) {
-            output += this.meals.get(arrSize - 1);
+            output += this.meals.get(arrSize - 1).getName();
         }
 
         return output;

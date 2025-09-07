@@ -6,18 +6,21 @@
  * to a double, validate dates, and validate lines of data read from CSV files.
  * 
  * @author Michel Préjet
- * @version 2025-08-29
+ * @version 2025-09-06
  */
 
 public class DataValidator {
 
     /**
-     * @param s the string to be validated.
-     * @return true if the given string is not null, empty, or only whitespace;
-     *         false otherwise.
+     * @param s         the string to validate.
+     * @param fieldName the name of the field to validate.
+     * @throws ValidationException if {@code s} is null, empty, or only
+     *                             whitespace.
      */
-    public static boolean validateString(String s) {
-        return s != null && !s.trim().isEmpty();
+    public static void validateString(String s, String fieldName) {
+        if (s == null || s.trim().isEmpty()) {
+            throw new ValidationException(fieldName, ValidationException.INVALID_STRING_CODE);
+        }
     }
 
     /**
@@ -25,24 +28,23 @@ public class DataValidator {
      * no more than one period, no more than one dash at the first index, and
      * no other non-digit characters.
      * 
-     * @param s the string to be validated.
-     * @return true if the given string is a valid double; false otherwise.
+     * @param s         the string to validate.
+     * @param fieldName the name of the field to validate.
+     * @throws ValidationException if {@code s} is not a valid double.
      */
-    public static boolean isValidDouble(String s) {
-        if (!validateString(s)) {
-            return false;
-        }
+    public static void requireDouble(String s, String fieldName) {
+        validateString(s, fieldName);
         s = s.trim();
 
         // Check that there is no more than one period in the string.
         if (s.indexOf(".") != s.lastIndexOf(".")) {
-            return false;
+            throw new ValidationException(fieldName, ValidationException.INVALID_DOUBLE_CODE);
         }
 
         // If there is a negative sign, check that it is the first character.
         if (s.indexOf("-") != -1) {
             if (s.lastIndexOf("-") != 0) {
-                return false;
+                throw new ValidationException(fieldName, ValidationException.INVALID_DOUBLE_CODE);
             }
         }
 
@@ -52,11 +54,9 @@ public class DataValidator {
         s = s.replace("-", "");
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) {
-                return false;
+                throw new ValidationException(fieldName, ValidationException.INVALID_DOUBLE_CODE);
             }
         }
-
-        return true;
     }
 
     /**
@@ -66,13 +66,12 @@ public class DataValidator {
      * be positive integers, the month must be between 1 and 12 (inclusive), and the
      * day must be valid for the given month (e.g. 31 days is invalid for June).
      * 
-     * @param date the string to be validated.
-     * @return true if the given string is a valid date; false otherwise.
+     * @param date      the string to validate.
+     * @param fieldName the name of the field to validate.
+     * @throws ValidationException if {@code date} is not a valid date.
      */
-    public static boolean validateDate(String date) {
-        if (date == null) {
-            return false;
-        }
+    public static void validateDate(String date, String fieldName) {
+        validateString(date, fieldName);
 
         // Check that the date is formatted correctly. It must have a length of 10
         // and exactly two dashes at indices 4 and 7. All other characters must be
@@ -82,11 +81,11 @@ public class DataValidator {
             date = date.replace("-", "");
             for (int i = 0; i < date.length(); i++) {
                 if (!Character.isDigit(date.charAt(i))) {
-                    return false;
+                    throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
                 }
             }
         } else {
-            return false;
+            throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
         }
 
         // Get the year, month, and day.
@@ -96,7 +95,7 @@ public class DataValidator {
 
         // Make sure that the year, month, and day are positive.
         if (year <= 0 || month <= 0 || day <= 0) {
-            return false;
+            throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
         }
 
         // Check that the month is between 1 and 12 (inclusive) and that it has
@@ -109,35 +108,47 @@ public class DataValidator {
             case 8:
             case 10:
             case 12:
-                return day <= 31;
+                if (day > 31) {
+                    throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
+                }
+                break;
             case 4:
             case 6:
             case 9:
             case 11:
-                return day <= 30;
+                if (day > 30) {
+                    throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
+                }
+                break;
             case 2:
                 if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
-                    return day <= 29;
+                    if (day > 29) {
+                        throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
+                    }
                 } else {
-                    return day <= 28;
+                    if (day > 28) {
+                        throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
+                    }
                 }
+                break;
             default:
-                return false;
+                throw new ValidationException(fieldName, ValidationException.INVALID_DATE_CODE);
         }
     }
 
     /**
      * Checks that a line of data read from a CSV file will not cause
      * exceptions or unexpected results. Ensures that there are either 5 or 8
-     * tokens, that all tokens are valid strings, that tokens 4, 5, 6, and 7
-     * can be safely cast to doubles, and that token 5 can safely be cast to a
-     * boolean.
+     * tokens, that all tokens are valid strings, and that tokens 4, 5, 6, and 7
+     * can be safely cast to doubles.
      * 
      * @param line the CSV line to be validated.
      * @return true if all required tokens exist and are valid; false otherwise.
      */
     public static boolean validateLine(String line) {
-        if (!validateString(line)) {
+        try {
+            validateString(line, "Line");
+        } catch (ValidationException ve) {
             return false;
         }
 
@@ -147,21 +158,43 @@ public class DataValidator {
             return false;
         }
 
-        // Validate the first six tokens.
-        if (!validateDate(tokens[0]) // Week anchor date
-                || (Week.getDayIndex(tokens[1]) == -1 && !tokens[1].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Day
-                || (!validateString(tokens[2]) && !tokens[2].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Meal name
-                || (!validateString(tokens[3]) && !tokens[3].equals(MealPlanner.EMPTY_PLACEHOLDER)) // Ingredient name
-                || (!isValidDouble(tokens[4]) && !tokens[4].equals(MealPlanner.EMPTY_PLACEHOLDER))) { // Quantity
+        // Validate the first five tokens.
+        // 1 - Day
+        if (Week.getDayIndex(tokens[1]) == -1 && !tokens[1].equals(MealPlanner.EMPTY_PLACEHOLDER)) {
             return false;
-        } else if (tokens.length == 5) {
+        }
+        try {
+            // 0 - Week anchor date
+            validateDate(tokens[0], "Week anchor date");
+            // 2 - Meal name
+            validateString(tokens[2], "Meal name");
+            // 3 - Ingredient name
+            validateString(tokens[3], "Ingredient name");
+            // 4 - Ingredient quantity
+            validateString(tokens[4], "Ingredient name");
+            if (!tokens[4].equals(MealPlanner.EMPTY_PLACEHOLDER)) {
+                requireDouble(tokens[4], "Ingredient quantity");
+            }
+        } catch (ValidationException ve) {
+            return false;
+        }
+
+        if (tokens.length == 5) {
             return true;
         }
 
         // Validate the remaining tokens (for lines which contain nutritional
         // information).
-        return (isValidDouble(tokens[5]) || tokens[5].equals(MealPlanner.EMPTY_PLACEHOLDER))
-                && (isValidDouble(tokens[6]) || tokens[6].equals(MealPlanner.EMPTY_PLACEHOLDER))
-                && (isValidDouble(tokens[7]) || tokens[7].equals(MealPlanner.EMPTY_PLACEHOLDER));
+        try {
+            // 5 - carbs per 100 g
+            requireDouble(tokens[5], "Carbohydrates per 100 grams");
+            // 6 - fat per 100 g
+            requireDouble(tokens[6], "Fat per 100 grams");
+            // 7 - protein per 100 g
+            requireDouble(tokens[7], "Protein per 100 grams");
+        } catch (ValidationException ve) {
+            return false;
+        }
+        return true;
     }
 }
