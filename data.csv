@@ -1,0 +1,230 @@
+WeekAnchorDate,DayOfWeek,MealName,IngredientName,Quantity,CarbsPer100g,FatPer100g,ProteinPer100g
+2025-08-31,Sunday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-08-31,Sunday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-08-31,Sunday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-08-31,Sunday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-08-31,Sunday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-08-31,Sunday,Veggie Omelet,Herb Mix,3.000000
+2025-08-31,Sunday,Oatmeal Bowl,Rolled Oats,60.000000,66.000000,7.000000,17.000000
+2025-08-31,Sunday,Oatmeal Bowl,Banana,100.000000,23.000000,0.300000,1.100000
+2025-08-31,Sunday,Oatmeal Bowl,Peanut Butter,20.000000,20.000000,50.000000,25.000000
+2025-08-31,Sunday,Oatmeal Bowl,Cinnamon (pinch),2.000000
+2025-08-31,Sunday,Beef Tacos,Tortilla (corn),100.000000,45.000000,3.500000,6.000000
+2025-08-31,Sunday,Beef Tacos,Ground Beef (lean),120.000000,0.000000,20.000000,27.000000
+2025-08-31,Sunday,Beef Tacos,Onion,40.000000,9.300000,0.100000,1.100000
+2025-08-31,Sunday,Beef Tacos,Cheddar Cheese,25.000000,1.300000,33.000000,25.000000
+2025-08-31,Sunday,Beef Tacos,Salsa,30.000000,4.000000,0.000000,1.000000
+2025-08-31,Sunday,Beef Tacos,Lime,10.000000
+2025-08-31,Monday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-08-31,Monday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-08-31,Monday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-08-31,Monday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-08-31,Monday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-08-31,Monday,Chicken Stir-Fry,Garlic,5.000000
+2025-08-31,Tuesday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-08-31,Tuesday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-08-31,Tuesday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-08-31,Tuesday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-08-31,Tuesday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-08-31,Tuesday,Veggie Omelet,Herb Mix,3.000000
+2025-08-31,Wednesday,Margherita Pizza,Pizza Dough,200.000000,50.000000,1.500000,9.000000
+2025-08-31,Wednesday,Margherita Pizza,Tomato Sauce,80.000000,6.000000,0.200000,1.500000
+2025-08-31,Wednesday,Margherita Pizza,Mozzarella,120.000000,2.200000,17.000000,22.000000
+2025-08-31,Wednesday,Margherita Pizza,Basil,5.000000
+2025-08-31,Wednesday,Margherita Pizza,Olive Oil,8.000000,0.000000,100.000000,0.000000
+2025-08-31,Wednesday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-08-31,Wednesday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-08-31,Wednesday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-08-31,Wednesday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-08-31,Wednesday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-08-31,Wednesday,Veggie Omelet,Herb Mix,3.000000
+2025-08-31,Wednesday,Salmon with Rice,Salmon,150.000000,0.000000,13.000000,20.000000
+2025-08-31,Wednesday,Salmon with Rice,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-08-31,Wednesday,Salmon with Rice,Asparagus,80.000000,4.000000,0.200000,2.200000
+2025-08-31,Wednesday,Salmon with Rice,Butter,10.000000,0.000000,81.000000,1.000000
+2025-08-31,Wednesday,Salmon with Rice,Lemon,10.000000
+2025-08-31,Thursday,Oatmeal Bowl,Rolled Oats,60.000000,66.000000,7.000000,17.000000
+2025-08-31,Thursday,Oatmeal Bowl,Banana,100.000000,23.000000,0.300000,1.100000
+2025-08-31,Thursday,Oatmeal Bowl,Peanut Butter,20.000000,20.000000,50.000000,25.000000
+2025-08-31,Thursday,Oatmeal Bowl,Cinnamon (pinch),2.000000
+2025-08-31,Friday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-08-31,Friday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-08-31,Friday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-08-31,Friday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-08-31,Friday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-08-31,Friday,Chicken Stir-Fry,Garlic,5.000000
+2025-08-31,Saturday,Margherita Pizza,Pizza Dough,200.000000,50.000000,1.500000,9.000000
+2025-08-31,Saturday,Margherita Pizza,Tomato Sauce,80.000000,6.000000,0.200000,1.500000
+2025-08-31,Saturday,Margherita Pizza,Mozzarella,120.000000,2.200000,17.000000,22.000000
+2025-08-31,Saturday,Margherita Pizza,Basil,5.000000
+2025-08-31,Saturday,Margherita Pizza,Olive Oil,8.000000,0.000000,100.000000,0.000000
+2025-09-07,Sunday,Oatmeal Bowl,Rolled Oats,60.000000,66.000000,7.000000,17.000000
+2025-09-07,Sunday,Oatmeal Bowl,Banana,100.000000,23.000000,0.300000,1.100000
+2025-09-07,Sunday,Oatmeal Bowl,Peanut Butter,20.000000,20.000000,50.000000,25.000000
+2025-09-07,Sunday,Oatmeal Bowl,Cinnamon (pinch),2.000000
+2025-09-07,Sunday,Margherita Pizza,Pizza Dough,200.000000,50.000000,1.500000,9.000000
+2025-09-07,Sunday,Margherita Pizza,Tomato Sauce,80.000000,6.000000,0.200000,1.500000
+2025-09-07,Sunday,Margherita Pizza,Mozzarella,120.000000,2.200000,17.000000,22.000000
+2025-09-07,Sunday,Margherita Pizza,Basil,5.000000
+2025-09-07,Sunday,Margherita Pizza,Olive Oil,8.000000,0.000000,100.000000,0.000000
+2025-09-07,Sunday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-07,Sunday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-07,Sunday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-07,Sunday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-07,Sunday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-07,Sunday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-07,Monday,Margherita Pizza,Pizza Dough,200.000000,50.000000,1.500000,9.000000
+2025-09-07,Monday,Margherita Pizza,Tomato Sauce,80.000000,6.000000,0.200000,1.500000
+2025-09-07,Monday,Margherita Pizza,Mozzarella,120.000000,2.200000,17.000000,22.000000
+2025-09-07,Monday,Margherita Pizza,Basil,5.000000
+2025-09-07,Monday,Margherita Pizza,Olive Oil,8.000000,0.000000,100.000000,0.000000
+2025-09-07,Monday,Salmon with Rice,Salmon,150.000000,0.000000,13.000000,20.000000
+2025-09-07,Monday,Salmon with Rice,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-07,Monday,Salmon with Rice,Asparagus,80.000000,4.000000,0.200000,2.200000
+2025-09-07,Monday,Salmon with Rice,Butter,10.000000,0.000000,81.000000,1.000000
+2025-09-07,Monday,Salmon with Rice,Lemon,10.000000
+2025-09-07,Monday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-07,Monday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-07,Monday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-07,Monday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-07,Monday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-07,Monday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-07,Tuesday,Tofu Noodle Bowl,Rice Noodles (dry),90.000000,79.000000,1.000000,5.000000
+2025-09-07,Tuesday,Tofu Noodle Bowl,Tofu (firm),120.000000,1.900000,8.700000,17.000000
+2025-09-07,Tuesday,Tofu Noodle Bowl,Bok Choy,80.000000,2.200000,0.200000,1.500000
+2025-09-07,Tuesday,Tofu Noodle Bowl,Peanuts,20.000000,16.000000,49.000000,26.000000
+2025-09-07,Tuesday,Tofu Noodle Bowl,Chili Oil,6.000000
+2025-09-07,Tuesday,Beef Tacos,Tortilla (corn),100.000000,45.000000,3.500000,6.000000
+2025-09-07,Tuesday,Beef Tacos,Ground Beef (lean),120.000000,0.000000,20.000000,27.000000
+2025-09-07,Tuesday,Beef Tacos,Onion,40.000000,9.300000,0.100000,1.100000
+2025-09-07,Tuesday,Beef Tacos,Cheddar Cheese,25.000000,1.300000,33.000000,25.000000
+2025-09-07,Tuesday,Beef Tacos,Salsa,30.000000,4.000000,0.000000,1.000000
+2025-09-07,Tuesday,Beef Tacos,Lime,10.000000
+2025-09-07,Wednesday,Turkey Sandwich,Bread,80.000000,49.000000,4.400000,9.000000
+2025-09-07,Wednesday,Turkey Sandwich,Turkey Breast (sliced),80.000000,1.000000,3.000000,29.000000
+2025-09-07,Wednesday,Turkey Sandwich,Lettuce,20.000000,3.000000,0.200000,1.400000
+2025-09-07,Wednesday,Turkey Sandwich,Tomato,40.000000,3.900000,0.200000,0.900000
+2025-09-07,Wednesday,Turkey Sandwich,Mayonnaise,15.000000,0.600000,75.000000,0.300000
+2025-09-07,Wednesday,Turkey Sandwich,Mustard,10.000000
+2025-09-07,Thursday,Salmon with Rice,Salmon,150.000000,0.000000,13.000000,20.000000
+2025-09-07,Thursday,Salmon with Rice,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-07,Thursday,Salmon with Rice,Asparagus,80.000000,4.000000,0.200000,2.200000
+2025-09-07,Thursday,Salmon with Rice,Butter,10.000000,0.000000,81.000000,1.000000
+2025-09-07,Thursday,Salmon with Rice,Lemon,10.000000
+2025-09-07,Thursday,Buddha Bowl,Quinoa (cooked),180.000000,21.000000,1.900000,4.400000
+2025-09-07,Thursday,Buddha Bowl,Sweet Potato (roasted),150.000000,20.000000,0.100000,1.600000
+2025-09-07,Thursday,Buddha Bowl,Avocado,50.000000,9.000000,15.000000,2.000000
+2025-09-07,Thursday,Buddha Bowl,Tahini Dressing,20.000000,14.000000,54.000000,17.000000
+2025-09-07,Thursday,Buddha Bowl,Sesame Seeds,5.000000
+2025-09-07,Thursday,Beef Tacos,Tortilla (corn),100.000000,45.000000,3.500000,6.000000
+2025-09-07,Thursday,Beef Tacos,Ground Beef (lean),120.000000,0.000000,20.000000,27.000000
+2025-09-07,Thursday,Beef Tacos,Onion,40.000000,9.300000,0.100000,1.100000
+2025-09-07,Thursday,Beef Tacos,Cheddar Cheese,25.000000,1.300000,33.000000,25.000000
+2025-09-07,Thursday,Beef Tacos,Salsa,30.000000,4.000000,0.000000,1.000000
+2025-09-07,Thursday,Beef Tacos,Lime,10.000000
+2025-09-07,Friday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-07,Friday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-07,Friday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-07,Friday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-07,Friday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-07,Friday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-07,Saturday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-09-07,Saturday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-09-07,Saturday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-09-07,Saturday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-09-07,Saturday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-09-07,Saturday,Veggie Omelet,Herb Mix,3.000000
+2025-09-07,Saturday,Tofu Noodle Bowl,Rice Noodles (dry),90.000000,79.000000,1.000000,5.000000
+2025-09-07,Saturday,Tofu Noodle Bowl,Tofu (firm),120.000000,1.900000,8.700000,17.000000
+2025-09-07,Saturday,Tofu Noodle Bowl,Bok Choy,80.000000,2.200000,0.200000,1.500000
+2025-09-07,Saturday,Tofu Noodle Bowl,Peanuts,20.000000,16.000000,49.000000,26.000000
+2025-09-07,Saturday,Tofu Noodle Bowl,Chili Oil,6.000000
+2025-09-14,Sunday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-09-14,Sunday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-09-14,Sunday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-09-14,Sunday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-09-14,Sunday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-09-14,Sunday,Veggie Omelet,Herb Mix,3.000000
+2025-09-14,Sunday,Buddha Bowl,Quinoa (cooked),180.000000,21.000000,1.900000,4.400000
+2025-09-14,Sunday,Buddha Bowl,Sweet Potato (roasted),150.000000,20.000000,0.100000,1.600000
+2025-09-14,Sunday,Buddha Bowl,Avocado,50.000000,9.000000,15.000000,2.000000
+2025-09-14,Sunday,Buddha Bowl,Tahini Dressing,20.000000,14.000000,54.000000,17.000000
+2025-09-14,Sunday,Buddha Bowl,Sesame Seeds,5.000000
+2025-09-14,Monday,Tofu Noodle Bowl,Rice Noodles (dry),90.000000,79.000000,1.000000,5.000000
+2025-09-14,Monday,Tofu Noodle Bowl,Tofu (firm),120.000000,1.900000,8.700000,17.000000
+2025-09-14,Monday,Tofu Noodle Bowl,Bok Choy,80.000000,2.200000,0.200000,1.500000
+2025-09-14,Monday,Tofu Noodle Bowl,Peanuts,20.000000,16.000000,49.000000,26.000000
+2025-09-14,Monday,Tofu Noodle Bowl,Chili Oil,6.000000
+2025-09-14,Monday,Beef Tacos,Tortilla (corn),100.000000,45.000000,3.500000,6.000000
+2025-09-14,Monday,Beef Tacos,Ground Beef (lean),120.000000,0.000000,20.000000,27.000000
+2025-09-14,Monday,Beef Tacos,Onion,40.000000,9.300000,0.100000,1.100000
+2025-09-14,Monday,Beef Tacos,Cheddar Cheese,25.000000,1.300000,33.000000,25.000000
+2025-09-14,Monday,Beef Tacos,Salsa,30.000000,4.000000,0.000000,1.000000
+2025-09-14,Monday,Beef Tacos,Lime,10.000000
+2025-09-14,Tuesday,Yogurt Parfait,Greek Yogurt (plain),170.000000,3.600000,0.400000,10.300000
+2025-09-14,Tuesday,Yogurt Parfait,Granola,45.000000,64.000000,10.000000,10.000000
+2025-09-14,Tuesday,Yogurt Parfait,Blueberries,70.000000,14.000000,0.300000,0.700000
+2025-09-14,Tuesday,Yogurt Parfait,Honey,15.000000,82.000000,0.000000,0.300000
+2025-09-14,Wednesday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-09-14,Wednesday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-09-14,Wednesday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-09-14,Wednesday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-09-14,Wednesday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-09-14,Wednesday,Veggie Omelet,Herb Mix,3.000000
+2025-09-14,Wednesday,Salmon with Rice,Salmon,150.000000,0.000000,13.000000,20.000000
+2025-09-14,Wednesday,Salmon with Rice,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-14,Wednesday,Salmon with Rice,Asparagus,80.000000,4.000000,0.200000,2.200000
+2025-09-14,Wednesday,Salmon with Rice,Butter,10.000000,0.000000,81.000000,1.000000
+2025-09-14,Wednesday,Salmon with Rice,Lemon,10.000000
+2025-09-14,Wednesday,Tofu Noodle Bowl,Rice Noodles (dry),90.000000,79.000000,1.000000,5.000000
+2025-09-14,Wednesday,Tofu Noodle Bowl,Tofu (firm),120.000000,1.900000,8.700000,17.000000
+2025-09-14,Wednesday,Tofu Noodle Bowl,Bok Choy,80.000000,2.200000,0.200000,1.500000
+2025-09-14,Wednesday,Tofu Noodle Bowl,Peanuts,20.000000,16.000000,49.000000,26.000000
+2025-09-14,Wednesday,Tofu Noodle Bowl,Chili Oil,6.000000
+2025-09-14,Thursday,Beef Tacos,Tortilla (corn),100.000000,45.000000,3.500000,6.000000
+2025-09-14,Thursday,Beef Tacos,Ground Beef (lean),120.000000,0.000000,20.000000,27.000000
+2025-09-14,Thursday,Beef Tacos,Onion,40.000000,9.300000,0.100000,1.100000
+2025-09-14,Thursday,Beef Tacos,Cheddar Cheese,25.000000,1.300000,33.000000,25.000000
+2025-09-14,Thursday,Beef Tacos,Salsa,30.000000,4.000000,0.000000,1.000000
+2025-09-14,Thursday,Beef Tacos,Lime,10.000000
+2025-09-14,Thursday,Buddha Bowl,Quinoa (cooked),180.000000,21.000000,1.900000,4.400000
+2025-09-14,Thursday,Buddha Bowl,Sweet Potato (roasted),150.000000,20.000000,0.100000,1.600000
+2025-09-14,Thursday,Buddha Bowl,Avocado,50.000000,9.000000,15.000000,2.000000
+2025-09-14,Thursday,Buddha Bowl,Tahini Dressing,20.000000,14.000000,54.000000,17.000000
+2025-09-14,Thursday,Buddha Bowl,Sesame Seeds,5.000000
+2025-09-14,Thursday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-14,Thursday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-14,Thursday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-14,Thursday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-14,Thursday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-14,Thursday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-14,Friday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-09-14,Friday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-09-14,Friday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-09-14,Friday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-09-14,Friday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-09-14,Friday,Veggie Omelet,Herb Mix,3.000000
+2025-09-14,Friday,Oatmeal Bowl,Rolled Oats,60.000000,66.000000,7.000000,17.000000
+2025-09-14,Friday,Oatmeal Bowl,Banana,100.000000,23.000000,0.300000,1.100000
+2025-09-14,Friday,Oatmeal Bowl,Peanut Butter,20.000000,20.000000,50.000000,25.000000
+2025-09-14,Friday,Oatmeal Bowl,Cinnamon (pinch),2.000000
+2025-09-14,Friday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-14,Friday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-14,Friday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-14,Friday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-14,Friday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-14,Friday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-14,Saturday,Veggie Omelet,Egg,100.000000,1.100000,9.500000,13.000000
+2025-09-14,Saturday,Veggie Omelet,Cheddar Cheese,30.000000,1.300000,33.000000,25.000000
+2025-09-14,Saturday,Veggie Omelet,Bell Pepper,50.000000,6.000000,0.300000,1.000000
+2025-09-14,Saturday,Veggie Omelet,Spinach,30.000000,3.600000,0.400000,2.900000
+2025-09-14,Saturday,Veggie Omelet,Olive Oil,10.000000,0.000000,100.000000,0.000000
+2025-09-14,Saturday,Veggie Omelet,Herb Mix,3.000000
+2025-09-14,Saturday,Chicken Stir-Fry,Chicken Breast,150.000000,0.000000,3.600000,31.000000
+2025-09-14,Saturday,Chicken Stir-Fry,Rice (cooked),180.000000,28.000000,0.300000,2.700000
+2025-09-14,Saturday,Chicken Stir-Fry,Broccoli,90.000000,7.000000,0.400000,2.800000
+2025-09-14,Saturday,Chicken Stir-Fry,Carrot,60.000000,10.000000,0.200000,0.900000
+2025-09-14,Saturday,Chicken Stir-Fry,Soy Sauce,15.000000,5.600000,0.100000,8.000000
+2025-09-14,Saturday,Chicken Stir-Fry,Garlic,5.000000
+2025-09-21,_EMPTY_,_EMPTY_,_EMPTY_,_EMPTY_
+2025-09-28,Monday,Chicken Fingers,_EMPTY_,_EMPTY_

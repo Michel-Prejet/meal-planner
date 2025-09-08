@@ -111,6 +111,8 @@ WeekAnchorDate,DayOfWeek,MealName,IngredientName,Quantity,CarbsPer100g,FatPer100
 
 The CSV file is not intended for manual editing, although data validation has been implemented in the event that this should occur. On startup, the program loads `data.csv`, and overwrites it with the current state upon exit.
 
+A sample CSV file has been provided with three complete weeks of meal planning, as well as two more incomplete weeks for demonstration purposes.
+
 To use a CSV file with a different name, update the value of `FILE_NAME` in `MealPlannerApp.java`. 
 
 ## Sample Output
